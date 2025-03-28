@@ -35,6 +35,7 @@ def main():
                     game.move_all_blocks_up()
                 elif event.key == pygame.K_DOWN:
                     game.move_all_blocks_down()
+                game._spawn_random_block()
                 print(game)
 
         renderer.render()

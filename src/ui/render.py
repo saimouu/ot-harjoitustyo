@@ -1,6 +1,16 @@
 import pygame
 
-from config import BLOCK_SIZE, FONT_FILE_PATH, FONT_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH
+from config import (
+    BACKGROUND_COLOR,
+    BLOCK_COLORS,
+    BLOCK_SIZE,
+    BOARD_COLOR,
+    FONT_FILE_PATH,
+    FONT_SIZE,
+    OUTLINE_COLOR,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH,
+)
 
 
 class Renderer:
@@ -15,7 +25,7 @@ class Renderer:
         self._center_height_correction = (SCREEN_HEIGHT - BLOCK_SIZE * 4) / 2
 
     def render(self):
-        self._display.fill((173, 163, 160))
+        self._display.fill(BACKGROUND_COLOR)
 
         board = self._render_board()
 
@@ -30,13 +40,16 @@ class Renderer:
 
     def _render_board(self):
         board = pygame.Surface((BLOCK_SIZE * 4, BLOCK_SIZE * 4))
-        board.fill((94, 79, 74))  # TODO: change later
+        board.fill(BOARD_COLOR)
         for x in range(4):
             for y in range(4):
                 rect = pygame.Rect(
-                    x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE
+                    x * BLOCK_SIZE,
+                    y * BLOCK_SIZE,
+                    BLOCK_SIZE,
+                    BLOCK_SIZE,
                 )
-                pygame.draw.rect(board, (36, 30, 28), rect, 5)
+                pygame.draw.rect(board, OUTLINE_COLOR, rect, 3)
         return board
 
     def _render_block(self, x, y, row, col, board):
@@ -44,11 +57,13 @@ class Renderer:
         if value == 0:
             return
 
+        color = BLOCK_COLORS[value] if value <= 2048 else BLOCK_COLORS[2048]
+
         rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 
-        pygame.draw.rect(board, (217, 118, 26), rect)
+        pygame.draw.rect(board, color, rect)
         board.blit(text, text_rect)
 
     def _render_all_blocks(self, board):
