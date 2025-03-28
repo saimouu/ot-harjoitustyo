@@ -26,9 +26,18 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        renderer.render()
-        pygame.display.update()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    game.move_all_blocks_left()
+                elif event.key == pygame.K_RIGHT:
+                    game.move_all_blocks_right()
+                elif event.key == pygame.K_UP:
+                    game.move_all_blocks_up()
+                elif event.key == pygame.K_DOWN:
+                    game.move_all_blocks_down()
+                print(game)
 
+        renderer.render()
         clock.tick(60)
 
     pygame.quit()

@@ -10,20 +10,25 @@ class Renderer:
 
         self._font = pygame.font.Font(FONT_FILE_PATH, FONT_SIZE)
 
-        self._board = self._init_board()
-
         # For centering the board surface
         self._center_width_correction = (SCREEN_WIDTH - BLOCK_SIZE * 4) / 2
         self._center_height_correction = (SCREEN_HEIGHT - BLOCK_SIZE * 4) / 2
 
     def render(self):
         self._display.fill((173, 163, 160))
-        self._display.blit(
-            self._board, (self._center_width_correction, self._center_height_correction)
-        )
-        self._render_all_blocks()
 
-    def _init_board(self):
+        board = self._render_board()
+
+        self._render_all_blocks(board)
+
+        self._display.blit(
+            board,
+            (self._center_width_correction, self._center_height_correction),
+        )
+
+        pygame.display.update()
+
+    def _render_board(self):
         board = pygame.Surface((BLOCK_SIZE * 4, BLOCK_SIZE * 4))
         board.fill((94, 79, 74))  # TODO: change later
         for x in range(4):
@@ -34,7 +39,7 @@ class Renderer:
                 pygame.draw.rect(board, (36, 30, 28), rect, 5)
         return board
 
-    def _render_block(self, x, y, row, col):
+    def _render_block(self, x, y, row, col, board):
         value = self._game.get_block_value(row, col)
         if value == 0:
             return
@@ -43,11 +48,11 @@ class Renderer:
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 
-        pygame.draw.rect(self._board, (217, 118, 26), rect)
-        self._board.blit(text, text_rect)
+        pygame.draw.rect(board, (217, 118, 26), rect)
+        board.blit(text, text_rect)
 
-    def _render_all_blocks(self):
+    def _render_all_blocks(self, board):
         # TODO: board values and visual values are not the same
         for x in range(4):
             for y in range(4):
-                self._render_block(x, y, y, x)
+                self._render_block(x, y, y, x, board)
