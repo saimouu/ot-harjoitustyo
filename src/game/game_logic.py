@@ -1,5 +1,8 @@
 import random
 
+# Note: move methods have a lot of repeating but are quite hard to split to other functions or combine to one,
+#   without making it even more complicated
+
 
 class GameLogic:
     def __init__(self):
@@ -27,7 +30,7 @@ class GameLogic:
                     return True
         return False
 
-    def _move_block_left(self, row, col):
+    def _move_block_left(self, row, col, merged_blocks):
         # Wall check
         if col - 1 < 0:
             return
@@ -46,14 +49,15 @@ class GameLogic:
             if current_block == 0:
                 self._grid[row][idx] = self._grid[row][idx + 1]
                 self._grid[row][idx + 1] = 0
-            elif current_block == block_value:
+            elif current_block == block_value and (row, idx) not in merged_blocks:
                 self._grid[row][idx] = block_value * 2
                 self._grid[row][idx + 1] = 0
+                merged_blocks.add((row, idx))
                 break  # can only merge once
             else:
                 break
 
-    def _move_block_right(self, row, col):
+    def _move_block_right(self, row, col, merged_blocks):
         if col + 1 > 3:
             return
 
@@ -69,39 +73,94 @@ class GameLogic:
             if current_block == 0:
                 self._grid[row][idx] = self._grid[row][idx - 1]
                 self._grid[row][idx - 1] = 0
-            elif current_block == block_value:
+            elif current_block == block_value and (row, idx) not in merged_blocks:
                 self._grid[row][idx] = block_value * 2
                 self._grid[row][idx - 1] = 0
+                merged_blocks.add((row, idx))
                 break
             else:
                 break
 
-    def _move_block_up(self, row, col):
-        pass
+    def _move_block_up(self, row, col, merged_blocks):
+        if row - 1 < 0:
+            return
 
-    def _move_block_down(self, row, col):
-        pass
+        if (
+            self._grid[row - 1][col] != self._grid[row][col]
+            and self._grid[row - 1][col] != 0
+        ):
+            return
+
+        block_value = self._grid[row][col]
+        for idx in range(row - 1, -1, -1):
+            current_block = self._grid[idx][col]
+            if current_block == 0:
+                self._grid[idx][col] = self._grid[idx + 1][col]
+                self._grid[idx + 1][col] = 0
+            elif current_block == block_value and (idx, col) not in merged_blocks:
+                self._grid[idx][col] = block_value * 2
+                self._grid[idx + 1][col] = 0
+                merged_blocks.add((idx, col))
+                break
+            else:
+                break
+
+    def _move_block_down(self, row, col, merged_blocks):
+        if row + 1 > 3:
+            return
+
+        if (
+            self._grid[row + 1][col] != self._grid[row][col]
+            and self._grid[row + 1][col] != 0
+        ):
+            return
+
+        block_value = self._grid[row][col]
+        for idx in range(row + 1, 4):
+            current_block = self._grid[idx][col]
+            if current_block == 0:
+                self._grid[idx][col] = self._grid[idx - 1][col]
+                self._grid[idx - 1][col] = 0
+            elif current_block == block_value and (idx, col) not in merged_blocks:
+                self._grid[idx][col] = block_value * 2
+                self._grid[idx - 1][col] = 0
+                merged_blocks.add((idx, col))
+                break
+            else:
+                break
 
     def move_all_blocks_left(self):
+        merged_blocks = set()
         for row in range(4):
             for col in range(4):
                 # Zero-valued blocks are not moved
                 if self._grid[row][col] == 0:
                     continue
-                self._move_block_left(row, col)
+                self._move_block_left(row, col, merged_blocks)
 
     def move_all_blocks_right(self):
+        merged_blocks = set()
         for row in range(4):
             for col in range(3, -1, -1):
                 if self._grid[row][col] == 0:
                     continue
-                self._move_block_right(row, col)
+                self._move_block_right(row, col, merged_blocks)
 
     def move_all_blocks_up(self):
-        pass
+        merged_blocks = set()
+        for col in range(4):
+            for row in range(4):
+                if self._grid[row][col] == 0:
+                    continue
+                self._move_block_up(row, col, merged_blocks)
 
     def move_all_blocks_down(self):
-        pass
+        merged_blocks = set()  # (row, col) tuple
+        for col in range(4):
+            for row in range(3, -1, -1):
+                if self._grid[row][col] == 0:
+                    continue
+                self._move_block_down(row, col, merged_blocks)
 
     @property
     def grid(self):
