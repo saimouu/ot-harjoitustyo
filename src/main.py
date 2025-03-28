@@ -12,7 +12,7 @@ def main():
     game._grid[3][1] = 2
     game._grid[1][0] = 2
     print(game)
-    game.move_all_blocks_left()
+    game.move_all_blocks_right()
     print(game)
 
 

@@ -53,6 +53,35 @@ class GameLogic:
             else:
                 break
 
+    def _move_block_right(self, row, col):
+        if col + 1 > 3:
+            return
+
+        if (
+            self._grid[row][col + 1] != self._grid[row][col]
+            and self._grid[row][col + 1] != 0
+        ):
+            return
+
+        block_value = self._grid[row][col]
+        for idx in range(col + 1, 4):
+            current_block = self._grid[row][idx]
+            if current_block == 0:
+                self._grid[row][idx] = self._grid[row][idx - 1]
+                self._grid[row][idx - 1] = 0
+            elif current_block == block_value:
+                self._grid[row][idx] = block_value * 2
+                self._grid[row][idx - 1] = 0
+                break
+            else:
+                break
+
+    def _move_block_up(self, row, col):
+        pass
+
+    def _move_block_down(self, row, col):
+        pass
+
     def move_all_blocks_left(self):
         for row in range(4):
             for col in range(4):
@@ -60,6 +89,19 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_left(row, col)
+
+    def move_all_blocks_right(self):
+        for row in range(4):
+            for col in range(3, -1, -1):
+                if self._grid[row][col] == 0:
+                    continue
+                self._move_block_right(row, col)
+
+    def move_all_blocks_up(self):
+        pass
+
+    def move_all_blocks_down(self):
+        pass
 
     @property
     def grid(self):
