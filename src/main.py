@@ -16,6 +16,10 @@ def main():
 
     clock = pygame.time.Clock()
 
+    # Delete
+    game._grid[0][0] = 2
+    game._grid[2][3] = 2
+
     running = True
     while running:
         for event in pygame.event.get():

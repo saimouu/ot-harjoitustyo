@@ -166,6 +166,9 @@ class GameLogic:
     def grid(self):
         return self._grid
 
+    def get_block_value(self, row, col):
+        return self._grid[row][col]
+
     def __str__(self) -> str:
         s = ""
         for i in range(len(self._grid)):
