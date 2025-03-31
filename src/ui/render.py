@@ -62,16 +62,7 @@ class Renderer:
                 (i * BLOCK_SIZE, BLOCK_SIZE * 4),
                 OUTLINE_THICKNESS,
             )
-        # for x in range(4):
-        #     for y in range(4):
-        #         rect = pygame.Rect(
-        #             x * BLOCK_SIZE,
-        #             y * BLOCK_SIZE,
-        #             BLOCK_SIZE,
-        #             BLOCK_SIZE,
-        #         )
-        #         pygame.draw.rect(board, OUTLINE_COLOR, rect, OUTLINE_THICKNESS)
-        #
+
         return board
 
     def _render_block(self, x, y, row, col, board):

@@ -26,7 +26,7 @@ class GameLogic:
 
         self._grid[space[0]][space[1]] = num
 
-    def _check_win(self):
+    def check_win(self):
         for row in range(4):
             for col in range(4):
                 if self._grid[row][col] == 2048:
