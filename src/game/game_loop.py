@@ -44,14 +44,15 @@ class GameLoop:
         if key in self._move_key_function:
             self._move_key_function[key]()
 
-            self._check_game_state()
             self._game.spawn_random_block()
+            self._check_game_state()
 
     def _check_game_state(self):
         if self._game.check_win():
             print("You Win!")  # Placeholder
             self._running = False
-        elif self._game.check_game_over():
+
+        if self._game.check_game_over():
             print("You Lose!")  # Placeholder
             self._running = False
 

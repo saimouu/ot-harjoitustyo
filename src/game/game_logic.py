@@ -21,10 +21,14 @@ class GameLogic:
 
     def spawn_random_block(self):
         empty_spaces = self._get_empty_spaces()
+        if not empty_spaces:
+            return False
+
         space = random.choice(empty_spaces)
         num = 2 if random.random() <= 0.9 else 4
 
         self._grid[space[0]][space[1]] = num
+        return True
 
     def check_win(self):
         for row in range(4):
