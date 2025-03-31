@@ -4,10 +4,11 @@ from config import FPS
 
 
 class GameLoop:
-    def __init__(self, game, renderer, clock):
+    def __init__(self, game, renderer, clock, event_queue):
         self._game = game
         self._renderer = renderer
         self._clock = clock
+        self._event_queue = event_queue
 
         self._running = True
 
@@ -33,7 +34,7 @@ class GameLoop:
         self._game.spawn_random_block()
 
     def _handle_events(self):
-        for event in pygame.event.get():
+        for event in self._event_queue.get():
             if event.type == pygame.QUIT:
                 return False
 
