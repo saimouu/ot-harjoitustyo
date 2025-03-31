@@ -8,6 +8,9 @@ class GameLogic:
     def __init__(self):
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
 
+    def _transpose_grid(self):
+        return list(map(list, zip(*self._grid)))
+
     def _get_empty_spaces(self):
         empty = []
         for row in range(4):
@@ -16,7 +19,7 @@ class GameLogic:
                     empty.append((row, col))
         return empty
 
-    def _spawn_random_block(self):
+    def spawn_random_block(self):
         empty_spaces = self._get_empty_spaces()
         space = random.choice(empty_spaces)
         num = 2 if random.random() <= 0.9 else 4
@@ -29,6 +32,24 @@ class GameLogic:
                 if self._grid[row][col] == 2048:
                     return True
         return False
+
+    def check_game_over(self):
+        if len(self._get_empty_spaces()) != 0:
+            return False
+
+        for row in range(4):
+            for col in range(4 - 1):
+                if self._grid[row][col] == self._grid[row][col + 1]:
+                    return False
+
+        # Vertical check
+        t_grid = self._transpose_grid()
+        for row in range(4):
+            for col in range(4 - 1):
+                if t_grid[row][col] == t_grid[row][col + 1]:
+                    return False
+
+        return True
 
     def _move_block_left(self, row, col, merged_blocks):
         # Wall check

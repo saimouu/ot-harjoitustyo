@@ -17,8 +17,8 @@ def main():
     clock = pygame.time.Clock()
 
     # Delete
-    game._grid[0][0] = 2
-    game._grid[2][3] = 2
+    # game._grid = [[2, 64, 2, 8], [4, 16, 64, 4], [2, 8, 256, 2], [4, 2, 64, 4]]
+    # print(game.check_game_over())
 
     running = True
     while running:
@@ -35,7 +35,7 @@ def main():
                     game.move_all_blocks_up()
                 elif event.key == pygame.K_DOWN:
                     game.move_all_blocks_down()
-                game._spawn_random_block()
+                game.spawn_random_block()
                 print(game)
 
         renderer.render()

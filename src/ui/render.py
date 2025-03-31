@@ -8,6 +8,7 @@ from config import (
     FONT_FILE_PATH,
     FONT_SIZE,
     OUTLINE_COLOR,
+    OUTLINE_THICKNESS,
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
 )
@@ -39,17 +40,38 @@ class Renderer:
         pygame.display.update()
 
     def _render_board(self):
-        board = pygame.Surface((BLOCK_SIZE * 4, BLOCK_SIZE * 4))
+        board = pygame.Surface(
+            (
+                BLOCK_SIZE * 4,
+                BLOCK_SIZE * 4,
+            )
+        )
         board.fill(BOARD_COLOR)
-        for x in range(4):
-            for y in range(4):
-                rect = pygame.Rect(
-                    x * BLOCK_SIZE,
-                    y * BLOCK_SIZE,
-                    BLOCK_SIZE,
-                    BLOCK_SIZE,
-                )
-                pygame.draw.rect(board, OUTLINE_COLOR, rect, 3)
+        for i in range(5):
+            pygame.draw.line(
+                board,
+                OUTLINE_COLOR,
+                (0, i * BLOCK_SIZE),
+                (BLOCK_SIZE * 4, i * BLOCK_SIZE),
+                OUTLINE_THICKNESS,
+            )
+            pygame.draw.line(
+                board,
+                OUTLINE_COLOR,
+                (i * BLOCK_SIZE, 0),
+                (i * BLOCK_SIZE, BLOCK_SIZE * 4),
+                OUTLINE_THICKNESS,
+            )
+        # for x in range(4):
+        #     for y in range(4):
+        #         rect = pygame.Rect(
+        #             x * BLOCK_SIZE,
+        #             y * BLOCK_SIZE,
+        #             BLOCK_SIZE,
+        #             BLOCK_SIZE,
+        #         )
+        #         pygame.draw.rect(board, OUTLINE_COLOR, rect, OUTLINE_THICKNESS)
+        #
         return board
 
     def _render_block(self, x, y, row, col, board):
