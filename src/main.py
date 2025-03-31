@@ -2,6 +2,7 @@ import pygame
 
 from config import SCREEN_HEIGHT, SCREEN_WIDTH
 from game.clock import Clock
+from game.event_queue import EventQueue
 from game.game_logic import GameLogic
 from game.game_loop import GameLoop
 from ui.render import Renderer
@@ -16,8 +17,9 @@ def main():
     game = GameLogic()
     renderer = Renderer(display, game)
     clock = Clock()
+    event_queue = EventQueue()
 
-    game_loop = GameLoop(game, renderer, clock)
+    game_loop = GameLoop(game, renderer, clock, event_queue)
 
     game_loop.run()
 
