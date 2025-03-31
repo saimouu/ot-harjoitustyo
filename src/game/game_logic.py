@@ -191,6 +191,12 @@ class GameLogic:
     def grid(self):
         return self._grid
 
+    @grid.setter
+    def grid(self, new_grid):
+        if len(new_grid) != 4 or len(new_grid[0]) != 4:
+            raise ValueError("Grid must be a 4x4 matrix")
+        self._grid = new_grid
+
     def get_block_value(self, row, col):
         return self._grid[row][col]
 
