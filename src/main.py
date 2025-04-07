@@ -21,6 +21,9 @@ def main():
 
     game_loop = GameLoop(game, renderer, clock, event_queue)
 
+    # g = [[1024, 1024, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+    game.grid = g
+
     game_loop.run()
 
 

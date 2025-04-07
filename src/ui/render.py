@@ -15,9 +15,10 @@ from config import (
 
 
 class Renderer:
-    def __init__(self, display, game):
+    def __init__(self, display, game, screen_type=None):
         self._display = display
         self._game = game
+        self._screen_type = screen_type
 
         self._font = pygame.font.Font(FONT_FILE_PATH, FONT_SIZE)
 
@@ -35,7 +36,22 @@ class Renderer:
             board,
             (self._center_width_correction, self._center_height_correction),
         )
+        self._render_score_text()
 
+        pygame.display.update()
+
+    def render_win_screen(self, win_screen):
+        self._display.fill(BACKGROUND_COLOR)
+
+        board = self._get_board()
+        self._render_all_blocks(board)
+
+        win_screen.render(board)
+
+        self._display.blit(
+            board,
+            (self._center_width_correction, self._center_height_correction),
+        )
         self._render_score_text()
 
         pygame.display.update()
@@ -102,3 +118,11 @@ class Renderer:
         for x in range(4):
             for y in range(4):
                 self._render_block(x, y, y, x, board)
+
+    # @property
+    # def screen_type(self):
+    #     return self._screen_type
+    #
+    # @screen_type.setter
+    # def screen_type(self, new_type):
+    #     self._screen_type = new_type
