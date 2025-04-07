@@ -7,6 +7,7 @@ import random
 class GameLogic:
     def __init__(self):
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
+        self._score = 0
 
     def _transpose_grid(self):
         return list(map(list, zip(*self._grid)))
@@ -78,6 +79,7 @@ class GameLogic:
                 self._grid[row][idx] = block_value * 2
                 self._grid[row][idx + 1] = 0
                 merged_blocks.add((row, idx))
+                self._score += block_value * 2
                 break  # can only merge once
             else:
                 break
@@ -102,6 +104,7 @@ class GameLogic:
                 self._grid[row][idx] = block_value * 2
                 self._grid[row][idx - 1] = 0
                 merged_blocks.add((row, idx))
+                self._score += block_value * 2
                 break
             else:
                 break
@@ -126,6 +129,7 @@ class GameLogic:
                 self._grid[idx][col] = block_value * 2
                 self._grid[idx + 1][col] = 0
                 merged_blocks.add((idx, col))
+                self._score += block_value * 2
                 break
             else:
                 break
@@ -150,6 +154,7 @@ class GameLogic:
                 self._grid[idx][col] = block_value * 2
                 self._grid[idx - 1][col] = 0
                 merged_blocks.add((idx, col))
+                self._score += block_value * 2
                 break
             else:
                 break
@@ -190,6 +195,10 @@ class GameLogic:
     @property
     def grid(self):
         return self._grid
+
+    @property
+    def score(self):
+        return self._score
 
     @grid.setter
     def grid(self, new_grid):

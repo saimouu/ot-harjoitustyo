@@ -28,8 +28,7 @@ class Renderer:
     def render(self):
         self._display.fill(BACKGROUND_COLOR)
 
-        board = self._render_board()
-
+        board = self._get_board()
         self._render_all_blocks(board)
 
         self._display.blit(
@@ -37,9 +36,29 @@ class Renderer:
             (self._center_width_correction, self._center_height_correction),
         )
 
+        self._render_score_text()
+
         pygame.display.update()
 
-    def _render_board(self):
+    def _render_score_text(self):
+        bg_width = 150
+        bg_height = 70
+
+        score_text = self._font.render(str(self._game.score), True, (0, 0, 0))
+        score_rect = score_text.get_rect()
+
+        bg_rect = pygame.Rect(
+            SCREEN_WIDTH // 2 - bg_width // 2,
+            BLOCK_SIZE - bg_height // 2,
+            bg_width,
+            bg_height,
+        )
+
+        pygame.draw.rect(self._display, BOARD_COLOR, bg_rect, border_radius=10)
+        score_rect.center = bg_rect.center
+        self._display.blit(score_text, score_rect)
+
+    def _get_board(self):
         board = pygame.Surface(
             (
                 BLOCK_SIZE * 4,
@@ -76,11 +95,10 @@ class Renderer:
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 
-        pygame.draw.rect(board, color, rect)
+        pygame.draw.rect(board, color, rect, border_radius=10)
         board.blit(text, text_rect)
 
     def _render_all_blocks(self, board):
-        # TODO: board values and visual values are not the same
         for x in range(4):
             for y in range(4):
                 self._render_block(x, y, y, x, board)
