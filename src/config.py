@@ -26,3 +26,9 @@ BUTTON_FONT_SIZE = 40
 FONT_FILE_PATH = None
 
 FPS = 60
+
+import os
+
+dirname = os.path.dirname(__file__)
+
+SCORES_FILE_PATH = os.path.join(dirname, "scores.csv")

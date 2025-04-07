@@ -1,6 +1,7 @@
 import pygame
 
 from config import FPS
+from ui.high_scores_screen import HighScoreScreen
 from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 
@@ -28,17 +29,22 @@ class GameLoop:
         self._initialize_start()
 
         while True:
+            self._render(self._popup)
             if self._game_state == "playing":
-                self._render()
+                # self._render(self._popup)
                 if self._handle_events() == False:
                     break
             elif self._game_state == "win":
-                self._render(self._popup)
+                # self._render(self._popup)
                 if self._handle_win_screen_events() == False:
                     break
             elif self._game_state == "lose":
-                self._render(self._popup)
+                # self._render(self._popup)
                 if self._handle_lose_screen_events() == False:
+                    break
+            elif self._game_state == "score":
+                # self._render(self._popup)
+                if self._handle_score_screen_events() == False:
                     break
 
             self._clock.tick(FPS)
@@ -53,6 +59,24 @@ class GameLoop:
                 return False
             if event.type == pygame.KEYDOWN:
                 self._handle_move_key_down(event.key)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                res = self._renderer.handle_button_events(event)
+                if res:
+                    self._popup = HighScoreScreen()
+                    self._game_state = "score"
+
+    def _handle_score_screen_events(self):
+        if self._popup is None:
+            raise ValueError("Screen type should not be None")
+
+        for event in self._event_queue.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            res = self._popup.handle_event(event)
+            if res == "exit":
+                self._popup = None
+                self._game_state = "playing"
 
     def _handle_win_screen_events(self):
         if self._popup == None:

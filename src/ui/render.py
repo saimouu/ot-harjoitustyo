@@ -12,6 +12,8 @@ from config import (
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
 )
+from ui.button import DisplayButton
+from ui.high_scores_screen import HighScoreScreen
 
 
 class Renderer:
@@ -20,6 +22,19 @@ class Renderer:
         self._game = game
 
         self._font = pygame.font.Font(FONT_FILE_PATH, FONT_SIZE)
+
+        self._buttons = [
+            DisplayButton(
+                "Scores",
+                pygame.Rect(
+                    10,
+                    self._display.get_height() - BLOCK_SIZE - 20,
+                    BLOCK_SIZE,
+                    BLOCK_SIZE,
+                ),
+                self._on_score_button_click,
+            )
+        ]
 
         # For centering the board surface
         self._center_width_correction = (SCREEN_WIDTH - BLOCK_SIZE * 4) / 2
@@ -40,7 +55,23 @@ class Renderer:
         )
         self._render_score_text()
 
+        self._render_buttons()
+
         pygame.display.update()
+
+    def _render_buttons(self):
+        for btn in self._buttons:
+            btn.render(self._display)
+
+    def _on_score_button_click(self):
+        return True
+
+    def handle_button_events(self, event):
+        for btn in self._buttons:
+            res = btn.handle_event(event)
+            if res:
+                return res
+        return None
 
     def _render_score_text(self):
         bg_width = 150
