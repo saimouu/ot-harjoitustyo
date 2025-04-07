@@ -11,7 +11,6 @@ class GameLoop:
         self._clock = clock
         self._event_queue = event_queue
 
-        # self._running = True
         self._game_state = "playing"
         self._continue_pressed = False
 
@@ -22,7 +21,7 @@ class GameLoop:
             pygame.K_DOWN: self._game.move_all_blocks_down,
         }
 
-        self._screen_type = None
+        self._popup = None
 
     def run(self):
         self._initialize_start()
@@ -34,7 +33,7 @@ class GameLoop:
                 self._render()
 
             elif self._game_state == "win":
-                self._render_win_screen()
+                self._render(self._popup)
                 if self._handle_win_screen_events() == False:
                     break
 
@@ -46,29 +45,30 @@ class GameLoop:
 
     def _handle_events(self):
         for event in self._event_queue.get():
-
             if event.type == pygame.QUIT:
                 return False
-
             if event.type == pygame.KEYDOWN:
                 self._handle_move_key_down(event.key)
 
     def _handle_win_screen_events(self):
-        if self._screen_type == None:
+        if self._popup == None:
             raise ValueError("Screen type should not be None")
 
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
                 return False
 
-            res = self._screen_type.handle_event(event)
+            res = self._popup.handle_event(event)
             if res == "continue":
-                self._continue_pressed = True
-                self._game_state = "playing"
-                self._screen_type = None
+                self._on_continue()
                 return True
             elif res == "quit":
                 return False
+
+    def _on_continue(self):
+        self._continue_pressed = True
+        self._game_state = "playing"
+        self._popup = None
 
     def _handle_move_key_down(self, key):
         if key in self._move_key_function:
@@ -80,13 +80,10 @@ class GameLoop:
     def _check_game_state(self):
         if self._game.check_win() and not self._continue_pressed:
             self._game_state = "win"
-            self._screen_type = WinScreen()
+            self._popup = WinScreen()
 
         if self._game.check_game_over():
             print("You Lose!")  # Placeholder
 
-    def _render(self):
-        self._renderer.render()
-
-    def _render_win_screen(self):
-        self._renderer.render_win_screen(self._screen_type)
+    def _render(self, popup=None):
+        self._renderer.render(popup)
