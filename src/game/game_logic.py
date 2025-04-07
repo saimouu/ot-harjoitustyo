@@ -9,6 +9,12 @@ class GameLogic:
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
         self._score = 0
 
+    def reset_game(self):
+        self._grid = [[0 for _ in range(4)] for _ in range(4)]
+        self._score = 0
+        self.spawn_random_block()
+        self.spawn_random_block()
+
     def _transpose_grid(self):
         return list(map(list, zip(*self._grid)))
 

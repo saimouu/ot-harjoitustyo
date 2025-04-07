@@ -1,6 +1,7 @@
 import pygame
 
 from config import FPS
+from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 
 
@@ -28,13 +29,16 @@ class GameLoop:
 
         while True:
             if self._game_state == "playing":
+                self._render()
                 if self._handle_events() == False:
                     break
-                self._render()
-
             elif self._game_state == "win":
                 self._render(self._popup)
                 if self._handle_win_screen_events() == False:
+                    break
+            elif self._game_state == "lose":
+                self._render(self._popup)
+                if self._handle_lose_screen_events() == False:
                     break
 
             self._clock.tick(FPS)
@@ -65,6 +69,27 @@ class GameLoop:
             elif res == "quit":
                 return False
 
+    def _handle_lose_screen_events(self):
+        if self._popup == None:
+            raise ValueError("Screen type should not be None")
+
+        for event in self._event_queue.get():
+            if event.type == pygame.QUIT:
+                return False
+
+            res = self._popup.handle_event(event)
+            if res == "retry":
+                self._on_retry()
+                return True
+            elif res == "quit":
+                return False
+
+    def _on_retry(self):
+        self._game.reset_game()
+        self._game_state = "playing"
+        self._popup = None
+        self._continue_pressed = False
+
     def _on_continue(self):
         self._continue_pressed = True
         self._game_state = "playing"
@@ -81,9 +106,9 @@ class GameLoop:
         if self._game.check_win() and not self._continue_pressed:
             self._game_state = "win"
             self._popup = WinScreen()
-
-        if self._game.check_game_over():
-            print("You Lose!")  # Placeholder
+        elif self._game.check_game_over():
+            self._game_state = "lose"
+            self._popup = LoseScreen()
 
     def _render(self, popup=None):
         self._renderer.render(popup)

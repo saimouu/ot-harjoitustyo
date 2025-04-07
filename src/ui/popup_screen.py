@@ -16,7 +16,7 @@ class PopupScreen:
         board_w, board_h = board.get_size()
         self._rect.center = (board_w // 2, board_h // 2)
 
-        text = self._font.render(str("You Win!"), True, (0, 0, 0))
+        text = self._font.render(str(self._header), True, (0, 0, 0))
         text_rect = text.get_rect(midtop=self._rect.midtop)
         text_rect.y += 10
 
