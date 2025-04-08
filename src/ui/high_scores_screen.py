@@ -1,15 +1,13 @@
 import pygame
 
 from config import BACKGROUND_COLOR, BLOCK_SIZE, BUTTON_FONT_SIZE, FONT_FILE_PATH
-from repositories.score_repository import ScoreRepository
 from ui.button import Button
 from ui.popup_screen import PopupScreen
 
 
 class HighScoreScreen(PopupScreen):
-    def __init__(self):
-        self._score_repository = ScoreRepository()
-        self._top_5 = self._score_repository.get_top_5()
+    def __init__(self, score_repository):
+        self._score_repository = score_repository
         self._rect = pygame.Rect(0, 0, BLOCK_SIZE * 3, BLOCK_SIZE * 4)
         self._score_font = pygame.font.Font(FONT_FILE_PATH, BUTTON_FONT_SIZE)
 
@@ -33,7 +31,8 @@ class HighScoreScreen(PopupScreen):
         pygame.draw.rect(board, BACKGROUND_COLOR, self._rect, border_radius=10)
         board.blit(text, text_rect)
 
-        for i, score in enumerate(self._top_5):
+        high_scores = self._score_repository.get_top_5()
+        for i, score in enumerate(high_scores):
             score_text = self._score_font.render(f"{i+1}. {score}", True, (0, 0, 0))
             score_rect = score_text.get_rect()
             score_rect.midtop = (
@@ -48,5 +47,4 @@ class HighScoreScreen(PopupScreen):
             btn.render(board)
 
     def _handle_exit(self):
-        print("uea")
         return "exit"

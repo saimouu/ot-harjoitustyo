@@ -13,7 +13,6 @@ from config import (
     SCREEN_WIDTH,
 )
 from ui.button import DisplayButton
-from ui.high_scores_screen import HighScoreScreen
 
 
 class Renderer:
@@ -64,7 +63,7 @@ class Renderer:
             btn.render(self._display)
 
     def _on_score_button_click(self):
-        return True
+        return "score"
 
     def handle_button_events(self, event):
         for btn in self._buttons:

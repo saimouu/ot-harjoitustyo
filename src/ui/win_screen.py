@@ -10,12 +10,12 @@ class WinScreen(PopupScreen):
         buttons = [
             Button(
                 "Continue",
-                pygame.Rect(0, 0, BLOCK_SIZE * 1.5, BLOCK_SIZE),
+                pygame.Rect(0, 0, BLOCK_SIZE * 1.5, BLOCK_SIZE * 0.75),
                 self._handle_continue,
             ),
             Button(
                 "Quit",
-                pygame.Rect(0, 0, BLOCK_SIZE * 1.5, BLOCK_SIZE),
+                pygame.Rect(0, 0, BLOCK_SIZE * 1.5, BLOCK_SIZE * 0.75),
                 self._handle_quit,
             ),
         ]

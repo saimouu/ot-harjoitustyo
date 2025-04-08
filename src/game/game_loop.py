@@ -7,11 +7,12 @@ from ui.win_screen import WinScreen
 
 
 class GameLoop:
-    def __init__(self, game, renderer, clock, event_queue):
+    def __init__(self, game, renderer, clock, event_queue, score_repository):
         self._game = game
         self._renderer = renderer
         self._clock = clock
         self._event_queue = event_queue
+        self._score_repository = score_repository
 
         self._game_state = "playing"
         self._continue_pressed = False
@@ -31,21 +32,10 @@ class GameLoop:
         while True:
             self._render(self._popup)
             if self._game_state == "playing":
-                # self._render(self._popup)
-                if self._handle_events() == False:
+                if self._handle_events() is False:
                     break
-            elif self._game_state == "win":
-                # self._render(self._popup)
-                if self._handle_win_screen_events() == False:
-                    break
-            elif self._game_state == "lose":
-                # self._render(self._popup)
-                if self._handle_lose_screen_events() == False:
-                    break
-            elif self._game_state == "score":
-                # self._render(self._popup)
-                if self._handle_score_screen_events() == False:
-                    break
+            elif self._handle_popup_events() is False:
+                break
 
             self._clock.tick(FPS)
 
@@ -61,52 +51,35 @@ class GameLoop:
                 self._handle_move_key_down(event.key)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 res = self._renderer.handle_button_events(event)
-                if res:
-                    self._popup = HighScoreScreen()
+                if res == "score":
+                    self._popup = HighScoreScreen(self._score_repository)
                     self._game_state = "score"
+        return True
 
-    def _handle_score_screen_events(self):
+    def _handle_popup_events(self):
         if self._popup is None:
             raise ValueError("Screen type should not be None")
 
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
                 return False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                result = self._popup.handle_event(event)
+                match result:
+                    case "exit":
+                        self._on_exit()
+                    case "continue":
+                        self._on_continue()
+                    case "quit":
+                        return False
+                    case "retry":
+                        self._on_retry()
+                    case _:
+                        pass
 
-            res = self._popup.handle_event(event)
-            if res == "exit":
-                self._popup = None
-                self._game_state = "playing"
-
-    def _handle_win_screen_events(self):
-        if self._popup == None:
-            raise ValueError("Screen type should not be None")
-
-        for event in self._event_queue.get():
-            if event.type == pygame.QUIT:
-                return False
-
-            res = self._popup.handle_event(event)
-            if res == "continue":
-                self._on_continue()
-                return True
-            elif res == "quit":
-                return False
-
-    def _handle_lose_screen_events(self):
-        if self._popup == None:
-            raise ValueError("Screen type should not be None")
-
-        for event in self._event_queue.get():
-            if event.type == pygame.QUIT:
-                return False
-
-            res = self._popup.handle_event(event)
-            if res == "retry":
-                self._on_retry()
-                return True
-            elif res == "quit":
-                return False
+    def _on_exit(self):
+        self._popup = None
+        self._game_state = "playing"
 
     def _on_retry(self):
         self._game.reset_game()
@@ -132,6 +105,7 @@ class GameLoop:
             self._popup = WinScreen()
         elif self._game.check_game_over():
             self._game_state = "lose"
+            self._score_repository.write_score([[self._game.score]])
             self._popup = LoseScreen()
 
     def _render(self, popup=None):

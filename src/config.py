@@ -25,7 +25,7 @@ FONT_SIZE = 60
 BUTTON_FONT_SIZE = 40
 FONT_FILE_PATH = None
 
-FPS = 60
+FPS = 30
 
 import os
 
