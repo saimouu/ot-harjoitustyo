@@ -17,7 +17,6 @@ class GameLoop:
         self._game_state = "playing"
         self._continue_pressed = False
 
-        # pylint: disable=no-member
         self._move_key_function = {
             pygame.K_LEFT: self._game.move_all_blocks_left,
             pygame.K_RIGHT: self._game.move_all_blocks_right,
@@ -44,7 +43,6 @@ class GameLoop:
         self._game.spawn_random_block()
         self._game.spawn_random_block()
 
-    # pylint: disable=no-member
     def _handle_events(self):
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
