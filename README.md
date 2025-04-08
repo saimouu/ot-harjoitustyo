@@ -32,3 +32,7 @@ Testikattavuusraportin generointi htmlcov-hakemistoon:
 ```
 poetry run invoke coverage-report
 ```
+Pylint `.pylintrc`-tiedoston määrityksien mukaan:
+```
+poetry run invoke lint
+```
