@@ -1,8 +1,5 @@
 import random
 
-# Note: move methods have a lot of repeating but are quite hard to split to other functions or combine to one,
-#   without making it even more complicated
-
 
 class GameLogic:
     def __init__(self):
@@ -217,6 +214,6 @@ class GameLogic:
 
     def __str__(self) -> str:
         s = ""
-        for i in range(len(self._grid)):
-            s += str(self._grid[i]) + "\n"
+        for row in self._grid:
+            s += str(row) + "\n"
         return s

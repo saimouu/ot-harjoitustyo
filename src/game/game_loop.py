@@ -17,6 +17,7 @@ class GameLoop:
         self._game_state = "playing"
         self._continue_pressed = False
 
+        # pylint: disable=no-member
         self._move_key_function = {
             pygame.K_LEFT: self._game.move_all_blocks_left,
             pygame.K_RIGHT: self._game.move_all_blocks_right,
@@ -43,6 +44,7 @@ class GameLoop:
         self._game.spawn_random_block()
         self._game.spawn_random_block()
 
+    # pylint: disable=no-member
     def _handle_events(self):
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
@@ -71,17 +73,20 @@ class GameLoop:
                     case "continue":
                         self._on_continue()
                     case "quit":
+                        self._write_score()
                         return False
                     case "retry":
                         self._on_retry()
                     case _:
                         pass
+        return True
 
     def _on_exit(self):
         self._popup = None
         self._game_state = "playing"
 
     def _on_retry(self):
+        self._write_score()
         self._game.reset_game()
         self._game_state = "playing"
         self._popup = None
@@ -105,8 +110,11 @@ class GameLoop:
             self._popup = WinScreen()
         elif self._game.check_game_over():
             self._game_state = "lose"
-            self._score_repository.write_score([[self._game.score]])
+            self._write_score()
             self._popup = LoseScreen()
 
     def _render(self, popup=None):
         self._renderer.render(popup)
+
+    def _write_score(self):
+        self._score_repository.write_score([[self._game.score]])

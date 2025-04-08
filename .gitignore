@@ -3,5 +3,4 @@
 htmlcov
 __pycache__
 
-.pylintrc
 scores.csv

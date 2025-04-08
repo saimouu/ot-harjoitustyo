@@ -33,7 +33,8 @@ class HighScoreScreen(PopupScreen):
 
         high_scores = self._score_repository.get_top_5()
         for i, score in enumerate(high_scores):
-            score_text = self._score_font.render(f"{i+1}. {score}", True, (0, 0, 0))
+            score_text = self._score_font.render(
+                f"{i+1}. {score}", True, (0, 0, 0))
             score_rect = score_text.get_rect()
             score_rect.midtop = (
                 self._rect.centerx,

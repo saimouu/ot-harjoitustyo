@@ -1,3 +1,5 @@
+import os
+
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 900
 BLOCK_SIZE = 110
@@ -27,8 +29,5 @@ FONT_FILE_PATH = None
 
 FPS = 30
 
-import os
-
 dirname = os.path.dirname(__file__)
-
 SCORES_FILE_PATH = os.path.join(dirname, "scores.csv")

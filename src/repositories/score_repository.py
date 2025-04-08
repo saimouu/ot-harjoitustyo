@@ -9,17 +9,17 @@ class ScoreRepository:
         self._file_path = SCORES_FILE_PATH
 
         if not os.path.exists(self._file_path):
-            with open(self._file_path, "w") as file:
+            with open(self._file_path, "w", encoding="UTF-8") as file:
                 file.write("")
 
     def write_score(self, score):
-        with open(self._file_path, "a", newline="") as file:
+        with open(self._file_path, "a", newline="", encoding="UTF-8") as file:
             writer = csv.writer(file)
             writer.writerows(score)
 
     def read_scores(self):
         scores = []
-        with open(self._file_path, "r") as file:
+        with open(self._file_path, "r", encoding="UTF-8") as file:
             reader = csv.reader(file)
             for row in reader:
                 scores.append(int(row[0]))
