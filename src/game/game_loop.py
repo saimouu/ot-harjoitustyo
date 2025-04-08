@@ -71,13 +71,16 @@ class GameLoop:
                     case "continue":
                         self._on_continue()
                     case "quit":
-                        self._write_score()
+                        self._on_quit()
                         return False
                     case "retry":
                         self._on_retry()
                     case _:
                         pass
         return True
+
+    def _on_quit(self):
+        self._write_score()
 
     def _on_exit(self):
         self._popup = None
@@ -108,7 +111,6 @@ class GameLoop:
             self._popup = WinScreen()
         elif self._game.check_game_over():
             self._game_state = "lose"
-            self._write_score()
             self._popup = LoseScreen()
 
     def _render(self, popup=None):
