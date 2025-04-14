@@ -10,6 +10,7 @@ class GameLogic:
         self._previous_grid = None
         self._undos_count = 0
         self._score = 0
+        self._moves = 0
 
     def reset_game(self):
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
@@ -176,6 +177,7 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_left(row, col, merged_blocks)
+        self._moves += 1
 
     def move_all_blocks_right(self):
         self._previous_grid = deepcopy(self._grid)
@@ -185,6 +187,7 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_right(row, col, merged_blocks)
+        self._moves += 1
 
     def move_all_blocks_up(self):
         self._previous_grid = deepcopy(self._grid)
@@ -194,6 +197,7 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_up(row, col, merged_blocks)
+        self._moves += 1
 
     def move_all_blocks_down(self):
         self._previous_grid = deepcopy(self._grid)
@@ -203,6 +207,7 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_down(row, col, merged_blocks)
+        self._moves += 1
 
     def restore_previous_grid(self):
         if (
@@ -212,11 +217,19 @@ class GameLogic:
         ):
             self._grid = deepcopy(self._previous_grid)
             self._undos_count += 1
+            self._moves -= 1
             return True
         return False
 
     def undos_left(self):
         return AMOUNT_OF_UNDOS_ALLOWED - self._undos_count
+
+    def get_max_block(self):
+        return max(map(max, self._grid))
+
+    @property
+    def moves(self):
+        return self._moves
 
     @property
     def grid(self):

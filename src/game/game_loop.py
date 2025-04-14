@@ -116,7 +116,6 @@ class GameLoop:
     def _handle_move_key_down(self, key):
         if key in self._move_key_function:
             self._move_key_function[key]()
-
             self._game.spawn_random_block()
             self._check_game_state()
 
@@ -132,4 +131,6 @@ class GameLoop:
         self._renderer.render(popup)
 
     def _write_score(self):
-        self._score_repository.write_score([[self._game.score]])
+        self._score_repository.write_score(
+            self._game.score, self._game.get_max_block(), self._game.moves
+        )
