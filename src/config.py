@@ -27,6 +27,8 @@ FONT_SIZE = 60
 BUTTON_FONT_SIZE = 40
 FONT_FILE_PATH = None
 
+AMOUNT_OF_UNDOS_ALLOWED = 2
+
 FPS = 30
 
 dirname = os.path.dirname(__file__)

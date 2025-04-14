@@ -13,6 +13,7 @@ from config import (
     SCREEN_WIDTH,
 )
 from ui.button import DisplayButton
+from ui.label import Label
 
 
 class Renderer:
@@ -22,18 +23,44 @@ class Renderer:
 
         self._font = pygame.font.Font(FONT_FILE_PATH, FONT_SIZE)
 
+        score_button = DisplayButton(
+            "Scores",
+            pygame.Rect(
+                10,
+                self._display.get_height() - BLOCK_SIZE - 20,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            ),
+            self._on_score_button_click,
+        )
+
+        undo_button = DisplayButton(
+            "Undo",
+            pygame.Rect(
+                self._display.get_width() - BLOCK_SIZE - 10,
+                self._display.get_height() - BLOCK_SIZE - 20,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            ),
+            self._on_undo_button_click,
+        )
+
+        undo_label = Label(
+            get_text=lambda: f"{self._game.undos_left()}",
+            rect=pygame.Rect(
+                undo_button.rect.x,
+                undo_button.rect.y + BLOCK_SIZE // 2 + 20,
+                BLOCK_SIZE,
+                20,
+            ),
+        )
+
         self._buttons = [
-            DisplayButton(
-                "Scores",
-                pygame.Rect(
-                    10,
-                    self._display.get_height() - BLOCK_SIZE - 20,
-                    BLOCK_SIZE,
-                    BLOCK_SIZE,
-                ),
-                self._on_score_button_click,
-            )
+            score_button,
+            undo_button,
         ]
+
+        self._labels = [undo_label]
 
         # For centering the board surface
         self._center_width_correction = (SCREEN_WIDTH - BLOCK_SIZE * 4) / 2
@@ -55,6 +82,7 @@ class Renderer:
         self._render_score_text()
 
         self._render_buttons()
+        self._render_labels()
 
         pygame.display.update()
 
@@ -62,8 +90,15 @@ class Renderer:
         for btn in self._buttons:
             btn.render(self._display)
 
+    def _render_labels(self):
+        for label in self._labels:
+            label.render(self._display)
+
     def _on_score_button_click(self):
         return "score"
+
+    def _on_undo_button_click(self):
+        return "undo"
 
     def handle_button_events(self, event):
         for btn in self._buttons:
@@ -123,8 +158,7 @@ class Renderer:
 
         color = BLOCK_COLORS[value] if value <= 2048 else BLOCK_COLORS[2048]
 
-        rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE,
-                           BLOCK_SIZE, BLOCK_SIZE)
+        rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 

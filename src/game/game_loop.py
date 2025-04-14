@@ -54,6 +54,9 @@ class GameLoop:
                 if res == "score":
                     self._popup = HighScoreScreen(self._score_repository)
                     self._game_state = "score"
+                elif res == "undo":
+                    self._on_undo()
+
         return True
 
     def _handle_popup_events(self):
@@ -79,6 +82,10 @@ class GameLoop:
                         pass
         return True
 
+    def _on_undo(self):
+        if not self._game.restore_previous_grid():
+            print("no undos left/can't undo")
+
     def _on_quit(self):
         self._write_score()
 
@@ -98,6 +105,7 @@ class GameLoop:
         self._game_state = "playing"
         self._popup = None
 
+    # TODO: fix bug where a new block is spawned even though no blocks moved
     def _handle_move_key_down(self, key):
         if key in self._move_key_function:
             self._move_key_function[key]()

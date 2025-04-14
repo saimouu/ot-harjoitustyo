@@ -24,7 +24,6 @@ class Button:
         board.blit(text, text_rect)
 
     def handle_event(self, event):
-
         if event.type == pygame.MOUSEBUTTONDOWN:
             board_position = self._relative_position(event.pos)
             if self.rect.collidepoint(board_position):

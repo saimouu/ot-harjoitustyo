@@ -1,9 +1,14 @@
 import random
+from copy import deepcopy
+
+from config import AMOUNT_OF_UNDOS_ALLOWED
 
 
 class GameLogic:
     def __init__(self):
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
+        self._previous_grid = None
+        self._undos_count = 0
         self._score = 0
 
     def reset_game(self):
@@ -163,6 +168,7 @@ class GameLogic:
                 break
 
     def move_all_blocks_left(self):
+        self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for row in range(4):
             for col in range(4):
@@ -172,6 +178,7 @@ class GameLogic:
                 self._move_block_left(row, col, merged_blocks)
 
     def move_all_blocks_right(self):
+        self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for row in range(4):
             for col in range(3, -1, -1):
@@ -180,6 +187,7 @@ class GameLogic:
                 self._move_block_right(row, col, merged_blocks)
 
     def move_all_blocks_up(self):
+        self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for col in range(4):
             for row in range(4):
@@ -188,12 +196,23 @@ class GameLogic:
                 self._move_block_up(row, col, merged_blocks)
 
     def move_all_blocks_down(self):
+        self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()  # (row, col) tuple
         for col in range(4):
             for row in range(3, -1, -1):
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_down(row, col, merged_blocks)
+
+    def restore_previous_grid(self):
+        if self._previous_grid and self._undos_count < 2:
+            self._grid = deepcopy(self._previous_grid)
+            self._undos_count += 1
+            return True
+        return False
+
+    def undos_left(self):
+        return AMOUNT_OF_UNDOS_ALLOWED - self._undos_count
 
     @property
     def grid(self):
@@ -202,6 +221,10 @@ class GameLogic:
     @property
     def score(self):
         return self._score
+
+    @property
+    def previous_grid(self):
+        return self._previous_grid
 
     @grid.setter
     def grid(self, new_grid):
