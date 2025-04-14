@@ -21,3 +21,4 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
 - Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
 - "Retry"- ja "Quit"-napit pääruutuun
+- Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän
