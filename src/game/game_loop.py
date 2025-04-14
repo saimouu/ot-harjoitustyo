@@ -43,6 +43,7 @@ class GameLoop:
         self._game.spawn_random_block()
         self._game.spawn_random_block()
 
+    # Main game screen events
     def _handle_events(self):
         for event in self._event_queue.get():
             if event.type == pygame.QUIT:
@@ -51,26 +52,31 @@ class GameLoop:
                 self._handle_move_key_down(event.key)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 result = self._renderer.handle_button_events(event)
-                match result:
-                    case "score":
-                        self._popup = HighScoreScreen(self._score_repository)
-                        self._game_state = "score"
-                    case "undo":
-                        self._on_undo()
-                    case "quit":
-                        self._on_quit()
-                        return False
-                    case "retry":
-                        self._on_retry()
-                    case _:
-                        pass
-                # if res == "score":
-                #     self._popup = HighScoreScreen(self._score_repository)
-                #     self._game_state = "score"
-                # elif res == "undo":
-                #     self._on_undo()
+                if not self._handle_mouse_button_events(result):
+                    return False
         return True
 
+    def _handle_mouse_button_events(self, result):
+        match result:
+            case "exit":
+                self._on_exit()
+            case "score":
+                self._popup = HighScoreScreen(self._score_repository)
+                self._game_state = "score"
+            case "undo":
+                self._on_undo()
+            case "continue":
+                self._on_continue()
+            case "quit":
+                self._on_quit()
+                return False
+            case "retry":
+                self._on_retry()
+            case _:
+                pass
+        return True
+
+    # Popup screen events
     def _handle_popup_events(self):
         if self._popup is None:
             raise ValueError("Screen type should not be None")
@@ -80,18 +86,8 @@ class GameLoop:
                 return False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 result = self._popup.handle_event(event)
-                match result:
-                    case "exit":
-                        self._on_exit()
-                    case "continue":
-                        self._on_continue()
-                    case "quit":
-                        self._on_quit()
-                        return False
-                    case "retry":
-                        self._on_retry()
-                    case _:
-                        pass
+                if not self._handle_mouse_button_events(result):
+                    return False
         return True
 
     def _on_undo(self):
