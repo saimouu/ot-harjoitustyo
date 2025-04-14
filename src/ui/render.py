@@ -37,7 +37,7 @@ class Renderer:
         undo_button = DisplayButton(
             "Undo",
             pygame.Rect(
-                self._display.get_width() - BLOCK_SIZE - 10,
+                score_button.rect.x + BLOCK_SIZE + 10,
                 self._display.get_height() - BLOCK_SIZE - 20,
                 BLOCK_SIZE,
                 BLOCK_SIZE,
@@ -55,9 +55,32 @@ class Renderer:
             ),
         )
 
+        quit_button = DisplayButton(
+            "Quit",
+            pygame.Rect(
+                self._display.get_width() - BLOCK_SIZE - 10,
+                self._display.get_height() - BLOCK_SIZE - 20,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            ),
+            lambda: "quit",
+        )
+        retry_button = DisplayButton(
+            "Retry",
+            pygame.Rect(
+                quit_button.rect.x - BLOCK_SIZE - 10,
+                quit_button.rect.y,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            ),
+            lambda: "retry",
+        )
+
         self._buttons = [
             score_button,
             undo_button,
+            quit_button,
+            retry_button,
         ]
 
         self._labels = [undo_label]

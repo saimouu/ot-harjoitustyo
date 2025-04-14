@@ -50,13 +50,25 @@ class GameLoop:
             if event.type == pygame.KEYDOWN:
                 self._handle_move_key_down(event.key)
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                res = self._renderer.handle_button_events(event)
-                if res == "score":
-                    self._popup = HighScoreScreen(self._score_repository)
-                    self._game_state = "score"
-                elif res == "undo":
-                    self._on_undo()
-
+                result = self._renderer.handle_button_events(event)
+                match result:
+                    case "score":
+                        self._popup = HighScoreScreen(self._score_repository)
+                        self._game_state = "score"
+                    case "undo":
+                        self._on_undo()
+                    case "quit":
+                        self._on_quit()
+                        return False
+                    case "retry":
+                        self._on_retry()
+                    case _:
+                        pass
+                # if res == "score":
+                #     self._popup = HighScoreScreen(self._score_repository)
+                #     self._game_state = "score"
+                # elif res == "undo":
+                #     self._on_undo()
         return True
 
     def _handle_popup_events(self):
