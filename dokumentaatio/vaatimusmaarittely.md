@@ -20,3 +20,4 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Pelaaja voi perua siirron esim. kaksi kertaa pelin aikana
 - Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
 - Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
+- "Retry"- ja "Quit"-napit pääruutuun
