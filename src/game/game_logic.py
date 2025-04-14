@@ -205,7 +205,11 @@ class GameLogic:
                 self._move_block_down(row, col, merged_blocks)
 
     def restore_previous_grid(self):
-        if self._previous_grid and self._undos_count < 2:
+        if (
+            self._previous_grid
+            and self._undos_count < 2
+            and self._previous_grid != self._grid
+        ):
             self._grid = deepcopy(self._previous_grid)
             self._undos_count += 1
             return True

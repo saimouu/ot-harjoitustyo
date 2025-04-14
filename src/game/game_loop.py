@@ -83,8 +83,7 @@ class GameLoop:
         return True
 
     def _on_undo(self):
-        if not self._game.restore_previous_grid():
-            print("no undos left/can't undo")
+        self._game.restore_previous_grid()
 
     def _on_quit(self):
         self._write_score()
