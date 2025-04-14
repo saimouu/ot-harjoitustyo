@@ -19,7 +19,7 @@ class LoseScreen(PopupScreen):
                 self._handle_quit,
             ),
         ]
-        super().__init__("You Lose!", buttons)
+        super().__init__("Game Over!", buttons)
 
     def _handle_retry(self):
         return "retry"

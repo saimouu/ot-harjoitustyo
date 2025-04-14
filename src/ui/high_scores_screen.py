@@ -8,7 +8,6 @@ from ui.popup_screen import PopupScreen
 class HighScoreScreen(PopupScreen):
     def __init__(self, score_repository):
         self._score_repository = score_repository
-        self._rect = pygame.Rect(0, 0, BLOCK_SIZE * 3, BLOCK_SIZE * 4)
         self._score_font = pygame.font.Font(FONT_FILE_PATH, BUTTON_FONT_SIZE)
 
         buttons = [
@@ -19,6 +18,8 @@ class HighScoreScreen(PopupScreen):
             ),
         ]
         super().__init__("High Scores", buttons)
+
+        self._rect = pygame.Rect(0, 0, BLOCK_SIZE * 3.5, BLOCK_SIZE * 3.5)
 
     def render(self, board):
         board_w, board_h = board.get_size()
@@ -32,13 +33,24 @@ class HighScoreScreen(PopupScreen):
         board.blit(text, text_rect)
 
         high_scores = self._score_repository.get_top_5()
+
+        title_text = self._score_font.render(
+            "Score / Max Block / Moves", True, (0, 0, 0)
+        )
+        title_rect = title_text.get_rect(midtop=text_rect.midtop)
+        title_rect.y += 50
+        board.blit(title_text, title_rect)
+
         for i, score in enumerate(high_scores):
             score_text = self._score_font.render(
-                f"{i+1}. {score}", True, (0, 0, 0))
+                f"{i+1}. {score["score"]} | {score["max_block"]} | {score["moves"]}",
+                True,
+                (0, 0, 0),
+            )
             score_rect = score_text.get_rect()
             score_rect.midtop = (
                 self._rect.centerx,
-                text_rect.bottom + 10 + i * (score_rect.height + 5),
+                text_rect.bottom + 40 + i * (score_rect.height + 5),
             )
             board.blit(score_text, score_rect)
 
