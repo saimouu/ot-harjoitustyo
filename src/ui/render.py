@@ -181,7 +181,8 @@ class Renderer:
 
         color = BLOCK_COLORS[value] if value <= 2048 else BLOCK_COLORS[2048]
 
-        rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
+        rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE,
+                           BLOCK_SIZE, BLOCK_SIZE)
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 

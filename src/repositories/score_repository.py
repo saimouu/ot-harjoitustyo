@@ -29,7 +29,8 @@ class ScoreRepository:
         return scores
 
     def get_top_5(self):
-        top = sorted(self.read_scores(), reverse=True, key=lambda d: d["score"])
+        top = sorted(self.read_scores(), reverse=True,
+                     key=lambda d: d["score"])
         return top[:5]
 
     def get_best_score(self):
