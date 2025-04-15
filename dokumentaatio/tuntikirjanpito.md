@@ -18,4 +18,5 @@
 |  | 1.5   | Move count ja max block |
 | 15.4. | 1.5    | Testaamista ja bugikorjauksia |
 |  | 2   | Dokumentaatio ja muut askareet |
-| yht | 29.5  |  |
+|  | 1   | Toimivuuden testaus ja bugin korjaus |
+| yht | 31.5  |  |
