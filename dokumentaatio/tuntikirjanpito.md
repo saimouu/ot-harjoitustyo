@@ -13,4 +13,9 @@
 |  | 1   | Refactorointia ja pieniä korjauksia |
 | 8.4. | 2    | Testaamista ja pylinit-virheiden korjaamista |
 |  | 1   | Arkkitehtuuri ja changelog |
-| yht | 21  |  |
+| 14.4. | 2    | Undo, retry ja quit-nappien toiminallisuuden toteutusta |
+|  | 0.5   | Refaktorointia |
+|  | 1.5   | Move count ja max block |
+| 15.4. | 1.5    | Testaamista ja bugikorjauksia |
+|  | 2   | Dokumentaatio ja muut askareet |
+| yht | 29.5  |  |
