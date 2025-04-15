@@ -3,6 +3,9 @@
 ## 2048 Peli
 2048 pelissä yhdistetään 4x4-ruudukossa olevia laattoja keskenään. Saman numeroisia laattoja pystyy yhdistämään, ja muodostunut laatta on niiden summa. Tavoitteena on saada 2048 numeroinen laatta.
 
+## Release
+[Viikko 5 Release](https://github.com/saimouu/ot-harjoitustyo/releases/tag/viikko5)
+
 ## Dokumentaatio
 - [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 - [Changelog](dokumentaatio/changelog.md)
