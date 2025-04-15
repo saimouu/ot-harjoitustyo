@@ -178,7 +178,8 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_left(row, col, merged_blocks)
-        self._moves += 1
+        if self.check_any_block_moved():
+            self._moves += 1
 
     def move_all_blocks_right(self):
         self._previous_grid = deepcopy(self._grid)
@@ -188,7 +189,8 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_right(row, col, merged_blocks)
-        self._moves += 1
+        if self.check_any_block_moved():
+            self._moves += 1
 
     def move_all_blocks_up(self):
         self._previous_grid = deepcopy(self._grid)
@@ -198,7 +200,8 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_up(row, col, merged_blocks)
-        self._moves += 1
+        if self.check_any_block_moved():
+            self._moves += 1
 
     def move_all_blocks_down(self):
         self._previous_grid = deepcopy(self._grid)
@@ -208,7 +211,8 @@ class GameLogic:
                 if self._grid[row][col] == 0:
                     continue
                 self._move_block_down(row, col, merged_blocks)
-        self._moves += 1
+        if self.check_any_block_moved():
+            self._moves += 1
 
     def restore_previous_grid(self):
         if (
