@@ -43,7 +43,7 @@ class HighScoreScreen(PopupScreen):
 
         for i, score in enumerate(high_scores):
             score_text = self._score_font.render(
-                f"{i+1}. {score["score"]} | {score["max_block"]} | {score["moves"]}",
+                f"{i+1}. {score['score']} | {score['max_block']} | {score['moves']}",
                 True,
                 (0, 0, 0),
             )
