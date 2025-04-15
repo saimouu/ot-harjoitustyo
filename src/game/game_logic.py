@@ -227,6 +227,9 @@ class GameLogic:
     def get_max_block(self):
         return max(map(max, self._grid))
 
+    def check_any_block_moved(self):
+        return self._grid != self._previous_grid
+
     @property
     def moves(self):
         return self._moves

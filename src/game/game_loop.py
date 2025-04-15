@@ -112,11 +112,11 @@ class GameLoop:
         self._game_state = "playing"
         self._popup = None
 
-    # TODO: fix bug where a new block is spawned even though no blocks moved
     def _handle_move_key_down(self, key):
         if key in self._move_key_function:
             self._move_key_function[key]()
-            self._game.spawn_random_block()
+            if self._game.check_any_block_moved():
+                self._game.spawn_random_block()
             self._check_game_state()
 
     def _check_game_state(self):
