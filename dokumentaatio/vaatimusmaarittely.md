@@ -17,8 +17,9 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Pelaaja voi tarkastella viittä parhainta tulostaan // **tehty**
 
 ## Jatkokehitysideoita
-- Pelaaja voi perua siirron esim. kaksi kertaa pelin aikana
+- Pelaaja voi perua siirron esim. kaksi kertaa pelin aikana // **tehty**
 - Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
 - Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
-- "Retry"- ja "Quit"-napit pääruutuun
-- Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän
+- "Retry"- ja "Quit"-napit pääruutuun // **tehty**
+- Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän // **tehty**
+- Ohje ruutu, sillä tällä hetkellä ei ole selkeää mitä nappeja painamalla laattoja liu'utetaan
