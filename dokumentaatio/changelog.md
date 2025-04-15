@@ -19,3 +19,9 @@
 - Lisätty `ScoreRepository` vastaamaan pisteiden tallentamisesta ja hakemisesta
 - Testattu, että `GameLogic`-luokka ylläpitää pistemäärää oikein, ja että voitto ja pelin loppumis tarkistukset toimivat oikein
 - Testattu, että `GameLoop`-luokka kutsuu vasemmalle siirtäessä vain kerran `move_all_blocks_left`-funktiota ja vain yksi uusi laatta luodaan
+
+## Viikko 5
+- Pelaaja pystyy perumaan siirron kaksi kertaa pelin aikana
+- Lisätty pääruutuun retry- ja quit-napit
+- Score-näkymässä näkyy pisteiden lisäksi myös isoin saatu laatta ja liu'utusten lukumäärä
+- Suurimman osan nappien mm. score, quit ja undo tapahtumankäsittely testattu
