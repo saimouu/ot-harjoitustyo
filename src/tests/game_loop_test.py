@@ -1,11 +1,11 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import pygame
 
-from game import game_loop
 from game.game_logic import GameLogic
 from game.game_loop import GameLoop
+from ui.high_scores_screen import HighScoreScreen
 from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 
@@ -60,6 +60,7 @@ class TestGameLoop(unittest.TestCase):
         game_loop._check_game_state()
 
         self.assertEqual(game_loop._game_state, "win")
+        self.assertIsInstance(game_loop._popup, WinScreen)
 
     @patch("pygame.font.Font")
     def test_shows_lose_popup_when_condition_lose_condition_is_true(self, font_mock):

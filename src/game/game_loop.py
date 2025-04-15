@@ -61,8 +61,7 @@ class GameLoop:
             case "exit":
                 self._on_exit()
             case "score":
-                self._popup = HighScoreScreen(self._score_repository)
-                self._game_state = "score"
+                self._on_score()
             case "undo":
                 self._on_undo()
             case "continue":
@@ -89,6 +88,10 @@ class GameLoop:
                 if not self._handle_mouse_button_events(result):
                     return False
         return True
+
+    def _on_score(self):
+        self._popup = HighScoreScreen(self._score_repository)
+        self._game_state = "score"
 
     def _on_undo(self):
         self._game.restore_previous_grid()
