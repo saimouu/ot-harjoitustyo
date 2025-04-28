@@ -1,11 +1,9 @@
 import unittest
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 import pygame
 
-from game.game_logic import GameLogic
 from game.game_loop import GameLoop
-from ui.high_scores_screen import HighScoreScreen
 from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 

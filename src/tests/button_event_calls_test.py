@@ -3,10 +3,14 @@ from unittest.mock import MagicMock, Mock, patch
 
 from game.game_loop import GameLoop
 from ui.high_scores_screen import HighScoreScreen
-from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 
 
+# Tests events related to mouse button events when a button is clicked.
+# The actual event is abstracted away using mocks, since the point is not
+#   to test te ui.
+# The tests make sure that the correct functions are called and that the
+#   functions called, change the gamestate accordingly.
 class TestButtonEventCall(unittest.TestCase):
     def setUp(self):
         self.game_mock = Mock()
@@ -29,6 +33,16 @@ class TestButtonEventCall(unittest.TestCase):
 
         self.game_loop._on_exit.assert_called_once()
 
+    @patch("pygame.font.Font")
+    def test_on_exit_changes_game_state_to_playing(self, font_mock):
+        self.game_loop._game_state = "score"
+        self.game_loop._popup = HighScoreScreen(Mock())
+
+        self.game_loop._on_exit()
+
+        self.assertEqual(self.game_loop._game_state, "playing")
+        self.assertEqual(self.game_loop._popup, None)
+
     def test_when_button_event_is_undo_on_undo_is_called(self):
         self.game_loop._on_undo = MagicMock()
         self.game_loop._handle_mouse_button_events("undo")
@@ -45,6 +59,17 @@ class TestButtonEventCall(unittest.TestCase):
         self.game_loop._handle_mouse_button_events("continue")
 
         self.game_loop._on_continue.assert_called_once()
+
+    @patch("pygame.font.Font")
+    def test_on_continue_changes_game_state_to_playing(self, font_mock):
+        self.game_loop._game_state = "win"
+        self.game_loop._popup = WinScreen()
+
+        self.game_loop._on_continue()
+
+        self.assertEqual(self.game_loop._game_state, "playing")
+        self.assertEqual(self.game_loop._popup, None)
+        self.assertEqual(self.game_loop._continue_pressed, True)
 
     def test_when_button_event_is_quit_on_quit_is_called(self):
         self.game_loop._on_quit = MagicMock()

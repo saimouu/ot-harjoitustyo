@@ -147,3 +147,48 @@ class TestGameLogic(unittest.TestCase):
         self.game.move_all_blocks_left()
 
         self.assertEqual(self.game.score, 8)
+
+    def test_restore_previous_restores_previous_grid(self):
+        self.game.grid = copy.deepcopy(BOARD_1)
+        self.game.move_all_blocks_left()
+
+        result = self.game.restore_previous_grid()
+        expected = [[0, 0, 0, 0], [2, 2, 2, 2], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+        self.assertEqual(self.game.grid, expected)
+        self.assertEqual(result, True)
+
+    def test_restore_previous_grid_does_not_change_the_grid_with_none(self):
+        self.game.grid = copy.deepcopy(BOARD_1)
+
+        result = self.game.restore_previous_grid()
+        expected = [[0, 0, 0, 0], [2, 2, 2, 2], [0, 0, 0, 0], [0, 0, 0, 0]]
+
+        self.assertEqual(self.game.grid, expected)
+        self.assertEqual(result, False)
+
+    def test_max_block_returns_the_maximum_value(self):
+        self.game.grid = copy.deepcopy(BOARD_GAME_OVER)
+
+        result = self.game.get_max_block()
+
+        self.assertEqual(result, 256)
+
+    def test_reset_game_zeros_the_grid_and_spawns_two_blocks(self):
+        self.game.grid = copy.deepcopy(BOARD_GAME_OVER)
+
+        self.game.reset_game()
+
+        result = 4 * 4 - len(self.game._get_empty_spaces())
+
+        self.assertEqual(result, 2)
+
+    def test_reset_game_resets_move_and_score(self):
+        self.game.grid = copy.deepcopy(BOARD_GAME_OVER)
+        self.game._moves = 256
+        self.game._score = 12345
+
+        self.game.reset_game()
+
+        self.assertEqual(self.game.score, 0)
+        self.assertEqual(self.game.moves, 0)
