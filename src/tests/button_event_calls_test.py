@@ -3,6 +3,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 from game.event_handler import EventHandler
 from ui.high_scores_screen import HighScoreScreen
+from ui.info_screen import InfoScreen
 from ui.win_screen import WinScreen
 
 
@@ -32,7 +33,7 @@ class TestButtonEventCall(unittest.TestCase):
         self.event_handler._on_exit.assert_called_once()
 
     @patch("pygame.font.Font")
-    def test_on_exit_changesstate_to_playing(self, font_mock):
+    def test_on_exit_change_state_to_playing(self, font_mock):
         self.event_handler._state = "score"
         self.event_handler._popup = HighScoreScreen(Mock())
 
@@ -59,7 +60,7 @@ class TestButtonEventCall(unittest.TestCase):
         self.event_handler._on_continue.assert_called_once()
 
     @patch("pygame.font.Font")
-    def test_on_continue_changesstate_to_playing(self, font_mock):
+    def test_on_continue_change_state_to_playing(self, font_mock):
         self.event_handler._state = "win"
         self.event_handler._popup = WinScreen()
 
@@ -88,7 +89,7 @@ class TestButtonEventCall(unittest.TestCase):
         self.event_handler._on_retry.assert_called_once()
 
     @patch("pygame.font.Font")
-    def test_on_retry_changesstate_to_playing(self, font_mock):
+    def test_on_retry_change_state_to_playing(self, font_mock):
         self.event_handler._state = "win"
         self.event_handler._popup = WinScreen()
 
@@ -110,11 +111,24 @@ class TestButtonEventCall(unittest.TestCase):
         self.event_handler._on_score.assert_called_once()
 
     @patch("pygame.font.Font")
-    def test_on_score_changesstate_to_score(self, font_mock):
+    def test_on_score_change_state_to_score(self, font_mock):
         self.event_handler._on_score()
 
         self.assertEqual(self.event_handler.state, "score")
         self.assertIsInstance(self.event_handler._popup, HighScoreScreen)
+
+    def test_when_button_event_is_info_on_info_is_called(self):
+        self.event_handler._on_info = MagicMock()
+        self.event_handler._handle_button_event("info")
+
+        self.event_handler._on_info.assert_called_once()
+
+    @patch("pygame.font.Font")
+    def test_on_info_chage_state_to_info(self, font_mock):
+        self.event_handler._on_info()
+
+        self.assertEqual(self.event_handler.state, "info")
+        self.assertIsInstance(self.event_handler._popup, InfoScreen)
 
     def test_when_button_event_is_arbitary_returns_true(self):
         self.event_handler._on_score = MagicMock()

@@ -1,5 +1,4 @@
 from config import FPS
-from game.event_handler import EventHandler
 
 
 class GameLoop:
