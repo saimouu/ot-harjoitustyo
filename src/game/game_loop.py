@@ -2,6 +2,7 @@ import pygame
 
 from config import FPS
 from ui.high_scores_screen import HighScoreScreen
+from ui.info_screen import InfoScreen
 from ui.lose_screen import LoseScreen
 from ui.win_screen import WinScreen
 
@@ -71,6 +72,8 @@ class GameLoop:
                 return False
             case "retry":
                 self._on_retry()
+            case "info":
+                self._on_info()
             case _:
                 pass
         return True
@@ -88,6 +91,10 @@ class GameLoop:
                 if not self._handle_mouse_button_events(result):
                     return False
         return True
+
+    def _on_info(self):
+        self._popup = InfoScreen()
+        self._game_state = "info"
 
     def _on_score(self):
         self._popup = HighScoreScreen(self._score_repository)
