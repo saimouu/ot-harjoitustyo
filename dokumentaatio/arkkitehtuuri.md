@@ -1,10 +1,12 @@
 ## Alustava rakenne
 ```mermaid
  classDiagram
-  GameLoop "1" -- "1" GameLogic
+  EventHandler "1" -- "1" GameLogic
+  Renderer --> EventHandler : Returns button event results
+  EventHandler "1" -- "1" ScoreRepository
+  EventHandler "1" -- "1" GameLoop
   GameLoop "1" -- "1" EventQueue
   GameLoop "1" -- "1" Clock
-  GameLoop "1" -- "1" ScoreRepository
   GameLoop "1" --> "1" Renderer
   Renderer --> GameLoop
   note for Renderer "UI main class"
@@ -26,14 +28,16 @@ sequenceDiagram
     Note over GameLoop, EventQueue: called every frame <br/> when game state is "playing" 
     EventQueue ->> PygameEvents : pygame.event.get()
     PygameEvents -->> EventQueue : event(s)
-    EventQueue -->> GameLoop : event, left key down
-    GameLoop ->> GameLogic : move_all_blocks_left()
-    GameLoop ->> GameLogic : spawn_random_block()
+    EventQueue -->> GameLoop : event(s)
+    GameLoop ->> EventHandler: handle_events(events)
+    EventHandler ->> GameLogic: move_all_blocks_left()
+    EventHandler ->> GameLogic: spawn_random_block()
     GameLogic -->> UI : (block positions updated)
-    GameLoop ->> GameLogic : check_win()
-    GameLogic -->> GameLoop : false
-    GameLoop ->> GameLogic : check_game_over()
-    GameLogic -->> GameLoop : false
+    EventHandler ->> GameLogic : check_win()
+    GameLogic -->> EventHandler : false
+    EventHandler ->> GameLogic : check_game_over()
+    GameLogic -->> EventHandler : false
+    EventHandler -->> GameLoop : true
     GameLoop ->> UI : render()
     UI -->> Player : Updated screen
 ```
