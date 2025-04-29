@@ -31,7 +31,7 @@ class Renderer:
                 BLOCK_SIZE,
                 BLOCK_SIZE,
             ),
-            self._on_score_button_click,
+            lambda: "score",
         )
 
         undo_button = DisplayButton(
@@ -42,7 +42,7 @@ class Renderer:
                 BLOCK_SIZE,
                 BLOCK_SIZE,
             ),
-            self._on_undo_button_click,
+            lambda: "undo",
         )
 
         undo_label = Label(
@@ -117,12 +117,6 @@ class Renderer:
         for label in self._labels:
             label.render(self._display)
 
-    def _on_score_button_click(self):
-        return "score"
-
-    def _on_undo_button_click(self):
-        return "undo"
-
     def handle_button_events(self, event):
         for btn in self._buttons:
             res = btn.handle_event(event)
@@ -174,15 +168,14 @@ class Renderer:
 
         return board
 
-    def _render_block(self, x, y, row, col, board):
+    def _render_block(self, row, col, board):
         value = self._game.get_block_value(row, col)
         if value == 0:
             return
 
         color = BLOCK_COLORS[value] if value <= 2048 else BLOCK_COLORS[2048]
 
-        rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE,
-                           BLOCK_SIZE, BLOCK_SIZE)
+        rect = pygame.Rect(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
         text = self._font.render(str(value), True, (0, 0, 0))
         text_rect = text.get_rect(center=rect.center)
 
@@ -190,6 +183,6 @@ class Renderer:
         board.blit(text, text_rect)
 
     def _render_all_blocks(self, board):
-        for x in range(4):
-            for y in range(4):
-                self._render_block(x, y, y, x, board)
+        for col in range(4):
+            for row in range(4):
+                self._render_block(row, col, board)
