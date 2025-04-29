@@ -6,6 +6,8 @@ from ui.popup_screen import PopupScreen
 
 
 class InfoScreen(PopupScreen):
+    """Info screen popup class."""
+
     def __init__(self):
         self._info_text_font = pygame.font.Font(FONT_FILE_PATH, TEXT_FONT_SIZE)
 

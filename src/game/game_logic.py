@@ -5,7 +5,23 @@ from config import AMOUNT_OF_UNDOS_ALLOWED
 
 
 class GameLogic:
+    """Manages the core game mechanics and state of 2048 game.
+
+    Attributes:
+        grid (list[list[int]]): Game board containing block values in a 2D matrix.
+        previous_grid (list[list[int]] | None): Previous grid state for undo functionality.
+        undos_count (int): Number of undos used by the player.
+        score (int): Current game score.
+        moves (int): Total number of valid moves made.
+    """
+
     def __init__(self):
+        """Class constructor.
+
+        Sets default values for attributes and initializes grid as a 4x4 2D matrix
+        where zero valued blocks are empty spaces.
+
+        """
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
         self._previous_grid = None
         self._undos_count = 0
@@ -13,6 +29,7 @@ class GameLogic:
         self._moves = 0
 
     def reset_game(self):
+        """Resets game to a state with two randomly placed blocks."""
         self._grid = [[0 for _ in range(4)] for _ in range(4)]
         self._score = 0
         self._moves = 0
@@ -20,9 +37,20 @@ class GameLogic:
         self.spawn_random_block()
 
     def _transpose_grid(self):
+        """Transposes the current grid.
+
+        Returns:
+            list[list[int]]: Transposed version of the grid.
+        """
         return list(map(list, zip(*self._grid)))
 
     def _get_empty_spaces(self):
+        """Gets all empty spaces of the current grid in (x, y) format.
+
+        Returns:
+            list[tuple[int, int]]: List of empty spaces as coordinate pairs.
+
+        """
         empty = []
         for row in range(4):
             for col in range(4):
@@ -31,6 +59,12 @@ class GameLogic:
         return empty
 
     def spawn_random_block(self):
+        """Spawns either 2 or 4 -block to one of the empty empty_spaces
+
+        Returns:
+            bool: True if block was spawned, False if the grid is full
+
+        """
         empty_spaces = self._get_empty_spaces()
         if not empty_spaces:
             return False
@@ -42,6 +76,11 @@ class GameLogic:
         return True
 
     def check_win(self):
+        """Checks if grid contains a 2048 block.
+
+        Returns:
+            bool: True if grid contains 2048, False otherwise.
+        """
         for row in range(4):
             for col in range(4):
                 if self._grid[row][col] == 2048:
@@ -49,6 +88,13 @@ class GameLogic:
         return False
 
     def check_game_over(self):
+        """Checks if game is over.
+
+        Returns True if grid is full and there are no legal moves left
+
+        Returns:
+            bool: True if game is over, False otherwise.
+        """
         if len(self._get_empty_spaces()) != 0:
             return False
 
@@ -170,6 +216,11 @@ class GameLogic:
                 break
 
     def move_all_blocks_left(self):
+        """Moves all blocks to the left and combines blocks with the same value.
+
+        Updates the game grid, score and move count accordingly.
+        A block can only merge one time.
+        """
         self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for row in range(4):
@@ -182,6 +233,11 @@ class GameLogic:
             self._moves += 1
 
     def move_all_blocks_right(self):
+        """Moves all blocks to the right and combines blocks with the same value.
+
+        Updates the game grid, score and move count accordingly.
+        A block can only merge one time.
+        """
         self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for row in range(4):
@@ -193,6 +249,11 @@ class GameLogic:
             self._moves += 1
 
     def move_all_blocks_up(self):
+        """Moves all blocks up and combines blocks with the same value.
+
+        Updates the game grid, score and move count accordingly.
+        A block can only merge one time.
+        """
         self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()
         for col in range(4):
@@ -204,6 +265,11 @@ class GameLogic:
             self._moves += 1
 
     def move_all_blocks_down(self):
+        """Moves all blocks down and combines blocks with the same value.
+
+        Updates the game grid, score and move count accordingly.
+        A block can only merge one time.
+        """
         self._previous_grid = deepcopy(self._grid)
         merged_blocks = set()  # (row, col) tuple
         for col in range(4):
@@ -227,12 +293,31 @@ class GameLogic:
         return False
 
     def undos_left(self):
+        """Returns the amount of undos left.
+
+        AMOUNT_OF_UNDOS_ALLOWED is specified in config.py.
+
+        Returns:
+            int: Number of undo actions the player can do.
+
+        """
         return AMOUNT_OF_UNDOS_ALLOWED - self._undos_count
 
     def get_max_block(self):
+        """Gets the largest block from the grid.
+
+        Returns:
+            int: Largest block value in the grid.
+
+        """
         return max(map(max, self._grid))
 
     def check_any_block_moved(self):
+        """Checks if the grid has changed.
+
+        Returns:
+            bool: True if the current grid and previous_grid are not the same, False otherwise.
+        """
         return self._grid != self._previous_grid
 
     @property

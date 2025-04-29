@@ -23,7 +23,7 @@ def main():
     score_repository = ScoreRepository()
     event_handler = EventHandler(game, renderer, score_repository)
 
-    game_loop = GameLoop(game, renderer, clock, event_queue, event_handler)
+    game_loop = GameLoop(renderer, clock, event_queue, event_handler)
 
     game_loop.run()
 

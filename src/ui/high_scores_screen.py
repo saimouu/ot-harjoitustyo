@@ -6,6 +6,8 @@ from ui.popup_screen import PopupScreen
 
 
 class HighScoreScreen(PopupScreen):
+    """High score screen popup class."""
+
     def __init__(self, score_repository):
         self._score_repository = score_repository
         self._score_font = pygame.font.Font(FONT_FILE_PATH, BUTTON_FONT_SIZE)

@@ -7,7 +7,26 @@ from ui.win_screen import WinScreen
 
 
 class EventHandler:
+    """Class that handles user events.
+
+    Attributes:
+        game: Core game logic object.
+        renderer: Renderer object responsible for drawing the game on the screen.
+        score_repository: Object responsible for writing and getting scores from a file.
+        state: Keeps track of the current screen.
+        continue_pressed: Keeps track if continue has been pressed in win screen.
+        popup: Stores the current popup screen.
+        move_key_function: Maps the arrow keys to appropriate move functions.
+    """
+
     def __init__(self, game, renderer, score_repository):
+        """Class constructor.
+
+        Args:
+            game: Core game logic object.
+            renderer: Renderer object responsible for drawing the game on the screen.
+            score_repository: Object responsible for writing and getting scores from a file.
+        """
         self._game = game
         self._renderer = renderer
         self._score_repository = score_repository
@@ -24,6 +43,14 @@ class EventHandler:
         }
 
     def handle_events(self, events):
+        """Handles the main screen events.
+
+        Args:
+            events (list[event]): List of events.
+
+        Returns:
+            bool: False if event is QUIT or user quits the game, True otherwise.
+        """
         for event in events:
             if event.type == pygame.QUIT:
                 return False
@@ -36,6 +63,14 @@ class EventHandler:
         return True
 
     def handle_popup_events(self, events):
+        """Handles the popup screen events.
+
+        Args:
+            events (list[event]): List of events.
+
+        Returns:
+            bool: False if event is QUIT or user quits the game, True otherwise.
+        """
         if self._popup is None:
             raise ValueError("Screen type should not be None")
 
@@ -49,6 +84,16 @@ class EventHandler:
         return True
 
     def _handle_button_event(self, result):
+        """Matches button event result to appropriate function.
+
+        If no match is found state doesn't change and returns True.
+
+        Args:
+            result (str): Returned result from button event.
+
+        Returns:
+            False if result is quit, True otherwise.
+        """
         match result:
             case "exit":
                 self._on_exit()
@@ -70,24 +115,34 @@ class EventHandler:
         return True
 
     def _on_info(self):
+        """Sets popup to InfoScreen and updates game state to 'info'."""
         self._popup = InfoScreen()
         self._state = "info"
 
     def _on_score(self):
+        """Sets popup to HighScoreScreen and updates game state to 'score'."""
         self._popup = HighScoreScreen(self._score_repository)
         self._state = "score"
 
     def _on_undo(self):
+        """Restores the previous game grid if there are undos left."""
         self._game.restore_previous_grid()
 
     def _on_quit(self):
+        """Writes score to file."""
         self._write_score()
 
     def _on_exit(self):
+        """Closes the currently displayed popup and sets state to 'playing'"""
         self._popup = None
         self._state = "playing"
 
     def _on_retry(self):
+        """Resets the game.
+
+        Writes score and restores default values.
+
+        """
         self._write_score()
         self._game.reset_game()
         self._state = "playing"
@@ -95,6 +150,7 @@ class EventHandler:
         self._continue_pressed = False
 
     def _on_continue(self):
+        """Continues the game even though win condition is met."""
         self._continue_pressed = True
         self._state = "playing"
         self._popup = None
@@ -107,6 +163,7 @@ class EventHandler:
             self._check_state()
 
     def _check_state(self):
+        """Checks win and lose conditions and changes state and popup accordingly."""
         if self._game.check_win() and not self._continue_pressed:
             self._state = "win"
             self._popup = WinScreen()
@@ -115,9 +172,14 @@ class EventHandler:
             self._popup = LoseScreen()
 
     def _write_score(self):
+        """Writes the current game score, largest block and move count to file."""
         self._score_repository.write_score(
             self._game.score, self._game.get_max_block(), self._game.moves
         )
+
+    def initialize_start(self):
+        self._game.spawn_random_block()
+        self._game.spawn_random_block()
 
     @property
     def popup(self):

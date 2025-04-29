@@ -6,6 +6,8 @@ from ui.popup_screen import PopupScreen
 
 
 class LoseScreen(PopupScreen):
+    """Lose screen popup class."""
+
     def __init__(self):
         buttons = [
             Button(
