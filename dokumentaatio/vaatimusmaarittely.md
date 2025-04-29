@@ -22,4 +22,4 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
 - "Retry"- ja "Quit"-napit pääruutuun // **tehty**
 - Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän // **tehty**
-- Ohje ruutu, sillä tällä hetkellä ei ole selkeää mitä nappeja painamalla laattoja liu'utetaan
+- Ohje ruutu, sillä tällä hetkellä ei ole selkeää mitä nappeja painamalla laattoja liu'utetaan // **tehty**
