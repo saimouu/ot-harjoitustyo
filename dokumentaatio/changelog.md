@@ -25,3 +25,9 @@
 - Lisätty pääruutuun retry- ja quit-napit
 - Score-näkymässä näkyy pisteiden lisäksi myös isoin saatu laatta ja liu'utusten lukumäärä
 - Suurimman osan nappien mm. score, quit ja undo tapahtumankäsittely testattu
+
+## Viikko 6
+- Lisätty lyhyt info-ruutu
+- Tapahtuman käsittely refaktoroitu omaan `EventHandler`-luokkaan
+- `GameLoop`-luokan testit refaktoroitu `EventHandler`-luokan testeiksi
+- Loput nappien tapahtumankäsittelyistä testattu
