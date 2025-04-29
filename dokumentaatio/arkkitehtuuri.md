@@ -1,4 +1,6 @@
-## Alustava rakenne
+# Arkkitehtuuri
+## Rakenne
+Pelin yleistason rakennetta ja yhteyksiä havainnollistaa seuraava luokkakaavio:
 ```mermaid
  classDiagram
   EventHandler "1" -- "1" GameLogic
@@ -12,6 +14,23 @@
   note for Renderer "UI main class"
   Renderer --> GameLogic : gets block positions to render
 ```
+- `GameLogic` sisältää pelin logiikan ja tilan.
+- `GameLoop` vastaa pelisilmukan pyörityksestä.
+- `EventHandler` käsittelee käyttäjän syötteet ja vastaa popup-ikkunoiden tilan hallinnasta.
+- `Renderer` vastaa pelin ja popup-ikkunoiden piirtämisestä ruudulle.
+- `ScoreRepository` huolehtii tulosten tallennuksesta ja hakemisesta.
+- `Clock` wrapper pygamen kellolle.
+- `EventQueue` hakee pygame tapahtumat.
+  
+## Sovelluslogiikka
+Peli käynnistetään `GameLoop`-luokan `run()` metodilla, jossa se pyörii silmukassa. 
+
+Pelin päälogiikka ja tila sijaitsee `GameLogic`-luokassa. Pelaajan syötteet, kuten nuolinappien painallukset, prosessoidaan `EventHandler`-luokassa ja delegoidaan `GameLogic`-luokalle, joka huolehtii laattojen siirroista, pisteiden laskennasta sekä voitto- ja häviötilanteiden tarkituksesta. `EventHandler` huolehtii myös popup-ruutujen, kuten voitto- ja pistenäkymien tilan hallinnasta.
+
+`Renderer`-luokka vastaa pelin piirtämisestä näytölle, ja päänäkymän nappien painalluksien palautusarvoista `EventHandler`-luokalle. Se hakee laattojen sijainnit ja muut tila arvot `GameLogic`-luokalta ja renderöi ne ruudulle. `Renderer`-luokka vastaa myös popup-ikkunoiden renderöinnistä, mutta näiden ikkunoiden nappien palautusarvojen vastuu on popup-ikkunaa vastaavalla `PopupScreen`-luokan aliluokalla.
+
+Pisteiden pysyväistallennuksesta ja lukemisesta vastaa `ScoreRepository`, joka tallentaa pisteet pelin loputtua tai kun pisteikkuna avataan.
+
 ## Päätoiminnallisuudet
 ### Laattojen liu'uttaminen
 Oletetaan, että peli on alustettu ja käynnistetty. Pelaajan painaessa peliruudussa ollessaan vasenta nuolinäppäintä, ja pelin jatkuessa tämän jälkeen, toimii sovelluksen logiikka sekvenssikaavion mukaan:
