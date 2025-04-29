@@ -76,11 +76,23 @@ class Renderer:
             lambda: "retry",
         )
 
+        info_button = DisplayButton(
+            "?",
+            pygame.Rect(
+                self._display.get_width() - BLOCK_SIZE * 0.75 - 10,
+                20,
+                BLOCK_SIZE * 0.75,
+                BLOCK_SIZE * 0.75,
+            ),
+            lambda: "info",
+        )
+
         self._buttons = [
             score_button,
             undo_button,
             quit_button,
             retry_button,
+            info_button,
         ]
 
         self._labels = [undo_label]
