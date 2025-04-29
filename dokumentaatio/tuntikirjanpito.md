@@ -19,4 +19,10 @@
 | 15.4. | 1.5    | Testaamista ja bugikorjauksia |
 |  | 2   | Dokumentaatio ja muut askareet |
 |  | 1   | Toimivuuden testaus ja bugin korjaus |
-| yht | 31.5  |  |
+| 28.4. | 1.5   | Testaamista ja siistimistä |
+| 29.4. | 0.5   | Info ruudun toteutus |
+| | 0.5   | Repositorio testit |
+| | 1.5   | Refaktorointia |
+| | 1.5   | Docstring aloitus |
+| | 1.5   | Dokumentaatio ja muut askareet |
+| yht | 35.5  |  |
