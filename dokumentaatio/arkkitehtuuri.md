@@ -31,6 +31,19 @@ Pelin päälogiikka ja tila sijaitsee `GameLogic`-luokassa. Pelaajan syötteet, 
 
 Pisteiden pysyväistallennuksesta ja lukemisesta vastaa `ScoreRepository`, joka tallentaa pisteet pelin loputtua tai kun pisteikkuna avataan.
 
+## Käyttöliittymä
+Käyttöliittymä koostuu kahdesta näkymä-tyypistä: päänäkymästä ja popup-näkymistä.
+
+Päänäkymästä eli siitä missä itse pelaaminen tapahtuu, ja pelin renderöinnistä vastaa `Renderer`-luokka.
+
+Eri popup-näkymiä on neljä ja ne sijaitsevat `/ui/screens`- hakemistossa:
+- High Score
+- Info
+- Lose
+- Win
+
+Jokainen Popup-näkymä perii `PopupScreen`-luokan, ja joissain tapauksissa ylikirjoittaa `render`-metodin. Popup-näkymät renderöidään päänäkymän päälle.
+
 ## Päätoiminnallisuudet
 ### Laattojen liu'uttaminen
 Oletetaan, että peli on alustettu ja käynnistetty. Pelaajan painaessa peliruudussa ollessaan vasenta nuolinäppäintä, ja pelin jatkuessa tämän jälkeen, toimii sovelluksen logiikka sekvenssikaavion mukaan:
