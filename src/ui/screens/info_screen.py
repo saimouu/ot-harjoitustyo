@@ -1,8 +1,8 @@
 import pygame
 
 from config import BACKGROUND_COLOR, BLOCK_SIZE, FONT_FILE_PATH, TEXT_FONT_SIZE
-from ui.button import Button
-from ui.popup_screen import PopupScreen
+from ui.common.button import Button
+from ui.screens.popup_screen import PopupScreen
 
 
 class InfoScreen(PopupScreen):

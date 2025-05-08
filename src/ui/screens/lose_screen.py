@@ -1,8 +1,8 @@
 import pygame
 
 from config import BLOCK_SIZE
-from ui.button import Button
-from ui.popup_screen import PopupScreen
+from ui.common.button import Button
+from ui.screens.popup_screen import PopupScreen
 
 
 class LoseScreen(PopupScreen):

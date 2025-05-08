@@ -1,9 +1,9 @@
 import pygame
 
-from ui.high_scores_screen import HighScoreScreen
-from ui.info_screen import InfoScreen
-from ui.lose_screen import LoseScreen
-from ui.win_screen import WinScreen
+from ui.screens.high_scores_screen import HighScoreScreen
+from ui.screens.info_screen import InfoScreen
+from ui.screens.lose_screen import LoseScreen
+from ui.screens.win_screen import WinScreen
 
 
 class EventHandler:

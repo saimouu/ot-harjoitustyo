@@ -12,8 +12,8 @@ from config import (
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
 )
-from ui.button import DisplayButton
-from ui.label import Label
+from ui.common.button import DisplayButton
+from ui.common.label import Label
 
 
 class Renderer:
