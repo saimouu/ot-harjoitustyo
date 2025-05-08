@@ -17,7 +17,16 @@ from ui.common.label import Label
 
 
 class Renderer:
+    """Class that handles the drawing of the game."""
+
     def __init__(self, display, game):
+        """Class constructor.
+
+        Args:
+            display: Pygame display object.
+            game: Main game logic object.
+
+        """
         self._display = display
         self._game = game
 
@@ -102,6 +111,11 @@ class Renderer:
         self._center_height_correction = (SCREEN_HEIGHT - BLOCK_SIZE * 4) / 2
 
     def render(self, popup=None):
+        """Renders the game and possible popup.
+
+        Args:
+            popup (popup-object|None): PopupScreen object, or None if was not given.
+        """
         self._display.fill(BACKGROUND_COLOR)
 
         board = self._get_board()
@@ -130,10 +144,17 @@ class Renderer:
             label.render(self._display)
 
     def handle_button_events(self, event):
+        """Returns result of the main screen button event.
+
+        Returns:
+            (str | None): Button event string according to it's handle_event method,
+                            or None if no result was gotten.
+
+        """
         for btn in self._buttons:
-            res = btn.handle_event(event)
-            if res:
-                return res
+            result = btn.handle_event(event)
+            if result:
+                return result
         return None
 
     def _render_score_text(self):

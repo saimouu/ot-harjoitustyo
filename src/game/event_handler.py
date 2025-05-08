@@ -178,6 +178,11 @@ class EventHandler:
         )
 
     def initialize_start(self):
+        """Initializes the first two blocks to random positions.
+
+        Called only once at the startup of the game.
+
+        """
         self._game.spawn_random_block()
         self._game.spawn_random_block()
 

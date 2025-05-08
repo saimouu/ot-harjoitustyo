@@ -282,9 +282,22 @@ class GameLogic:
             self._moves += 1
 
     def restore_previous_grid(self):
+        """Restores the previous block positions if the board has changed from last move.
+
+        Does not change the grid:
+            - at the start of the game when previous grid is None.
+            - no undo-actions are left to use.
+            - the grid has not changed from previous move.
+
+        If conditions are met and the grid is restored, undo_count is incremented by one
+        and move count decremented by one.
+
+        Returns:
+            bool: True if previous grid was restored, False otherwise.
+        """
         if (
             self._previous_grid
-            and self._undos_count < 2
+            and self.undos_left() > 0
             and self._previous_grid != self._grid
         ):
             self._grid = deepcopy(self._previous_grid)
@@ -344,6 +357,15 @@ class GameLogic:
         self._grid = new_grid
 
     def get_block_value(self, row, col):
+        """Gets block value at a specified (row, col) position in the grid.
+
+        Args:
+           row (int): Row index.
+           col (int): Column index.
+
+        Returns:
+            int: Block value at the (row, col) position. 0-value indicating an empty space.
+        """
         return self._grid[row][col]
 
     def __str__(self) -> str:

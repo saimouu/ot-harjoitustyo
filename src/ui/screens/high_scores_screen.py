@@ -9,6 +9,13 @@ class HighScoreScreen(PopupScreen):
     """High score screen popup class."""
 
     def __init__(self, score_repository):
+        """Class constructor.
+
+        Overrides the default rect, to make the popup bigger.
+
+        Args:
+            score_repository: Score repository object which handles fetching the high scores.
+        """
         self._score_repository = score_repository
         self._score_font = pygame.font.Font(FONT_FILE_PATH, BUTTON_FONT_SIZE)
 
@@ -24,6 +31,12 @@ class HighScoreScreen(PopupScreen):
         self._rect = pygame.Rect(0, 0, BLOCK_SIZE * 3.5, BLOCK_SIZE * 3.5)
 
     def render(self, board):
+        """Overrides the default PopupScreen.render() to support rendering high scores.
+
+        Args:
+            board: Pygame surface where popup will be drawn.
+
+        """
         board_w, board_h = board.get_size()
         self._rect.center = (board_w // 2, board_h // 2)
 
