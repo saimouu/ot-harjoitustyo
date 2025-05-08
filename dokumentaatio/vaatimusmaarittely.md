@@ -4,7 +4,7 @@
 2048 pelissä yhdistetään 4x4-ruudukossa olevia laattoja keskenään. Saman numeroisia laattoja pystyy yhdistämään, ja niiden muodostama laatta on niiden summa. Tavoitteena on saada 2048 numeroinen laatta, mutta peliä voidaan jatkaa myös tämän jälkeen. Peli loppuu kun koko ruudukko on täynnä laattoja, eikä yhtäkään pysty yhdistämään.
 
 ## Käyttäjät
-Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikallisesti. Mahdollisesti käyttäjä ominaisuus voidaan lisätä, jos halutaan esim. top 10 pisteet kaikista pelaajista.
+Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikallisesti.
 
 ## Perusversion tarjoama toiminnallisuus
 - Pelaaja voi siirtää laattoja nuolinäppäimillä // **tehty**
@@ -14,12 +14,13 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Kun pelaaja saa 2048-laatan, näytetään "You Win!" näkymä // **tehty**
   - Samalla pelaajalta kysytään haluaako tämä jatkaa pelaamista 
 - Peli loppuu kun koko ruudukko on täynnä laattoja, eikä yhtäkään laattaa pysty yhdistämään // **tehty**
+  - Pelaajalle näytetään "Game Over!" näkymä.
 - Pelaaja voi tarkastella viittä parhainta tulostaan // **tehty**
-
-## Jatkokehitysideoita
 - Pelaaja voi perua siirron esim. kaksi kertaa pelin aikana // **tehty**
-- Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
-- Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
 - "Retry"- ja "Quit"-napit pääruutuun // **tehty**
 - Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän // **tehty**
 - Ohje ruutu, sillä tällä hetkellä ei ole selkeää mitä nappeja painamalla laattoja liu'utetaan // **tehty**
+
+## Jatkokehitysideoita
+- Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
+- Laatat liikkuvat *animoidusti* eikä välittömästi paikoilleen
