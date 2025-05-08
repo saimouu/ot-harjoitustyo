@@ -2,9 +2,9 @@ import unittest
 from unittest.mock import MagicMock, Mock, patch
 
 from game.event_handler import EventHandler
-from ui.high_scores_screen import HighScoreScreen
-from ui.info_screen import InfoScreen
-from ui.win_screen import WinScreen
+from ui.screens.high_scores_screen import HighScoreScreen
+from ui.screens.info_screen import InfoScreen
+from ui.screens.win_screen import WinScreen
 
 
 # Tests events related to mouse button events when a button is clicked.
