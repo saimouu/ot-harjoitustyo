@@ -6,6 +6,8 @@ Kaikki testit ovat kirjoitettu [tests](https://github.com/saimouu/ot-harjoitusty
 ### Sovelluslogiikka
 Pelin päälogiikasta vastaa `GameLogic`-luokka, jota testataan `TestGameLogic`-testiluokalla. Sillä `GameLogic` ei ole riippuvainen muista luokista, on sen metodeja testattu suoraan.
 
+Muiden luokkien testauksessa on käytetty paljon `Mock`- tai `Stub`-oloita, jotta käyttöliittymä ja pelilogiikka pystyttäisiin erottamaan. 
+
 Eri painikkeiden klikkaus tapahtumia on testattu `TestButtonEventCalls`-testiluokassa. Jossa varmistetaan, että `EventHandler`-luokan sisäisiä funktioita kutsutaan oikein, ja sen tila muuttu oikein. Itse painikkeiden painallukset ovat näissä testeissä abstraktoitu pois.
 
 Painikkeiden ja nappien toimivuutta on testattu `TestEventHandler`- ja `GameLoop`-testiluokissa.
