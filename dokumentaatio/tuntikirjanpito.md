@@ -25,4 +25,9 @@
 | | 1.5   | Refaktorointia |
 | | 1.5   | Docstring aloitus |
 | | 1.5   | Dokumentaatio ja muut askareet |
-| yht | 35.5  |  |
+|8.5. | 1  | Refaktorointi |
+| | 2  | Dokumentaatio |
+|10.5. | 1  | Testausta |
+| | 1.5  | Testaus dokumentti |
+| | 0.5  | Muun dokumentaation siistimistä |
+| yht | 41.5  |  |
