@@ -16,10 +16,11 @@ Pelissä ei ole käyttäjiä, eli parhaimmat pistemäärät tallennetaan paikall
 - Peli loppuu kun koko ruudukko on täynnä laattoja, eikä yhtäkään laattaa pysty yhdistämään // **tehty**
   - Pelaajalle näytetään "Game Over!" näkymä.
 - Pelaaja voi tarkastella viittä parhainta tulostaan // **tehty**
-- Pelaaja voi perua siirron esim. kaksi kertaa pelin aikana // **tehty**
+- Pelaaja voi perua siirron kaksi kertaa pelin aikana // **tehty**
 - "Retry"- ja "Quit"-napit pääruutuun // **tehty**
 - Pelaaja pystyy näkemään parhaimpien tulosten suurimman laatan ja liu'utusten määrän // **tehty**
-- Ohje ruutu, sillä tällä hetkellä ei ole selkeää mitä nappeja painamalla laattoja liu'utetaan // **tehty**
+- Ohje ruutu, jossa kerrotaan millä napeilla laattoja liikutetaan // **tehty**
+  - Kerrotaan myös undo-toimintojen määrä ja milloin pisteet tallennetaan 
 
 ## Jatkokehitysideoita
 - Suoritukset tallennetaan tietokantaan, jolloin pelaajat voivat tarkastella *globaalia* top 10 listaa
