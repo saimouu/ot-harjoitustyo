@@ -2,7 +2,7 @@
 Ohjelmaa on testattu automatisoiduin yksikkö- ja integraatiotesteillä, sekä manuaalisesti järjestelmätasolla.
 
 ## Yksikkö- ja integraatiotestatus
-Kaikki testit ovat kirjoitettu [tests](src/tests/)-hakemistoon.
+Kaikki testit ovat kirjoitettu [tests](https://github.com/saimouu/ot-harjoitustyo/tree/main/src/tests)-hakemistoon.
 ### Sovelluslogiikka
 Pelin päälogiikasta vastaa `GameLogic`-luokka, jota testataan `TestGameLogic`-testiluokalla. Sillä `GameLogic` ei ole riippuvainen muista luokista, on sen metodeja testattu suoraan.
 
