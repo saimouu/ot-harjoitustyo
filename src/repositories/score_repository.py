@@ -63,7 +63,3 @@ class ScoreRepository:
         """
         top = sorted(self.read_scores(), reverse=True, key=lambda d: d["score"])
         return top[:5]
-
-    def get_best_score(self):
-        scores = [row["score"] for row in self.read_scores()]
-        return max(scores)
