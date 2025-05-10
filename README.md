@@ -10,6 +10,7 @@
 - [Käyttöohje](dokumentaatio/kayttoohje.md)
 - [Changelog](dokumentaatio/changelog.md)
 - [Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
+- [Testausdokumentti](dokumentaatio/testaus.md)
 - [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
 
 ## Asennus
