@@ -44,6 +44,18 @@ Eri popup-näkymiä on neljä ja ne sijaitsevat `/ui/screens`- hakemistossa:
 
 Jokainen Popup-näkymä perii `PopupScreen`-luokan, ja joissain tapauksissa ylikirjoittaa `render`-metodin. Popup-näkymät renderöidään päänäkymän päälle.
 
+## Pisteiden pysyväistallennus
+Pisteiden pysyväistallennuksesta ja lukemisesta vastaa `ScoreRepository`. Pisteet tallennetaan `scores.csv`-tiedostoon, joka on määritetty `config.py`-tiedostossa. Kun peli käynnistetään, `ScoreRepository` tarkistaa onko kyseistä tiedostoa olemassa, ja luo sen jos näin ei ole.
+
+Pisteet tallenetaan tiedostoon seuraavassa formaatissa:
+```
+score, max_block, moves
+300, 16, 29
+1050, 64, 83
+...
+```
+Jossa `score` on pistemäärä, `max_block` suurin saatu laatta ja `moves` käytettyjen liikkeiden määrä.
+
 ## Päätoiminnallisuudet
 ### Laattojen liu'uttaminen
 Oletetaan, että peli on alustettu ja käynnistetty. Pelaajan painaessa peliruudussa ollessaan vasenta nuolinäppäintä, ja pelin jatkuessa tämän jälkeen, toimii sovelluksen logiikka sekvenssikaavion mukaan:
