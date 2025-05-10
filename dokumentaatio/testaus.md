@@ -23,7 +23,7 @@ Käyttöliittymää lukuunottamatta pelin haaraumakattavuus on 88%. Myös `confi
 Puutteita jäi osittain nuolinäppäinten tapahtumien testaukseen. `Clock`- ja `EventQueue`-luokkia ei testattu, lähtökohtaisesti siitä syystä, että ne toimivat pelkästään wrappereinä pygamen päätoiminnallisuuksille.
 
 # Järjestelmätestaus
-Pelin järjestelmätestaus on suoritettu manuaalisesti.
+Pelin järjestelmätestaus on tehty manuaalisesti, eli pelaamalla peliä ja käyttämällä eri toimintoja mahdollisimman kattavasti.
 
 ### Asennus ja käynnistys
 Peli on ladattu ja käynnistetty [käyttöohjeen](dokumentaatio/kayttoohje.md) mukaan Cubbli Linux-ympäristössä.
