@@ -8,9 +8,9 @@ Pelin päälogiikasta vastaa `GameLogic`-luokka, jota testataan `TestGameLogic`-
 
 Muiden luokkien testauksessa on käytetty paljon `Mock`- tai `Stub`-oloita, jotta käyttöliittymä ja pelilogiikka pystyttäisiin erottamaan. 
 
-Eri painikkeiden klikkaus tapahtumia on testattu `TestButtonEventCalls`-testiluokassa. Jossa varmistetaan, että `EventHandler`-luokan sisäisiä funktioita kutsutaan oikein, ja sen tila muuttu oikein. Itse painikkeiden painallukset ovat näissä testeissä abstraktoitu pois.
+Eri painikkeiden klikkaus tapahtumia on testattu `TestButtonEventCalls`-testiluokassa. Jossa varmistetaan, että `EventHandler`-luokan sisäisiä funktioita kutsutaan oikein, ja että objektin tila muuttu halutulla tavalla. Itse painikkeiden painallukset ovat näissä testeissä abstraktoitu pois.
 
-Painikkeiden ja nappien toimivuutta on testattu `TestEventHandler`- ja `GameLoop`-testiluokissa.
+Painikkeiden ja nappien toimivuutta on testattu `TestEventHandler`- ja `TestGameLoop`-testiluokissa. `TestGameLoop`-luokassa testataan varsinkin `EventHandler`- ja `GameLoop`-luokkien yhteistoimintaa.
 
 ### Repositorio-luokka
 Repositorio-luokkaa `ScoreRepository` testataan `TestScoreRepository`-testiluokalla. Uusi testitiedosto luodaan jokaisen testin alussa ja poistetaan lopussa, jotta yli kirjoitusta oikean tiedoston kanssa ei tapahdu.
