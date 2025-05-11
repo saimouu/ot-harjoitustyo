@@ -31,3 +31,8 @@
 - Tapahtuman käsittely refaktoroitu omaan `EventHandler`-luokkaan
 - `GameLoop`-luokan testit refaktoroitu `EventHandler`-luokan testeiksi
 - Loput nappien tapahtumankäsittelyistä testattu
+
+## Viikko 7
+- Testattu, että `GameLoop` ja `EventHandler` toimivat yhdessä oikein painaessa oikeaa nuolinäppäintä
+- Testattu, että peli näyttää häviöruudun kun peli on ohi, ja voittoruudun kun on saatu 2048-laatta
+- Testattu, että "exit" tapahtuma sulkee popup ruudun
