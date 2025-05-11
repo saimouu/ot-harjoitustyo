@@ -30,4 +30,5 @@
 |10.5. | 1  | Testausta |
 | | 1.5  | Testaus dokumentti |
 | | 0.5  | Muun dokumentaation siistimistä |
-| yht | 41.5  |  |
+|11.5. | 1  | Dokumentaation viimeistelyä ja pelin lopullista testausta |
+| yht | 42.5  |  |
